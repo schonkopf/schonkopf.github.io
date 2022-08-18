@@ -1,6 +1,0 @@
-Analysis result aggregation
----------------------------
-
-.. automodule:: soundscape_IR.soundscape_viewer.soundscape_viewer
-.. autoclass:: data_organize
-    :members: time_fill, remove_column, plot_diurnal, save_csv
