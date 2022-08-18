@@ -1,7 +1,0 @@
-Sound detection and feature extraction
---------------------------------------
-
-.. automodule:: soundscape_IR.soundscape_viewer.utility
-
-.. autoclass:: spectrogram_detection
-    :members: feature_extraction
