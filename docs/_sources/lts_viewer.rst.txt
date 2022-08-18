@@ -1,0 +1,6 @@
+Long-term spectrogram viewer
+----------------------------
+
+.. automodule:: soundscape_IR.soundscape_viewer.soundscape_viewer
+.. autoclass:: lts_viewer
+    :members: plot_lts, input_selection

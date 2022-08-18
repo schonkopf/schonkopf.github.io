@@ -1,0 +1,6 @@
+Long-term spectrogram maker
+---------------------------
+
+.. automodule:: soundscape_IR.soundscape_viewer.lts_maker
+.. autoclass:: lts_maker
+    :members: filename_check, collect_folder, collect_Gdrive, run
