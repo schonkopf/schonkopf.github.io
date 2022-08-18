@@ -1,0 +1,8 @@
+Local-max detector
+------------------
+
+.. automodule:: soundscape_IR.soundscape_viewer.utility
+
+.. autoclass:: tonal_detection
+    :members: local_max
+
