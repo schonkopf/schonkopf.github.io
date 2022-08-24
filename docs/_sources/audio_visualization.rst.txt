@@ -1,8 +1,0 @@
-Audio visualization
--------------------
-
-.. automodule:: soundscape_IR.soundscape_viewer.utility
-
-.. autoclass:: audio_visualization
-    :members: convert_audio
-
