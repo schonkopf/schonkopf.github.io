@@ -1,0 +1,7 @@
+Audio source separation
+-----------------------
+
+.. automodule:: soundscape_IR.soundscape_viewer.source_separation
+
+.. autoclass:: source_separation
+    :members: learn_feature, specify_target, merge, prediction, plot_nmf, save_model, load_model

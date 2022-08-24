@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Long-term spectrogram maker &mdash; soundscape_IR 1.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/my_theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Long-term spectrogram viewer" href="lts_viewer.html" />
+    <link rel="prev" title="Batch analysis" href="batch_processing.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> soundscape_IR
+          </a>
+              <div class="version">
+                1.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_tutorials.html">Run batch analysis</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="audio_visualization.html">Audio visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source_separation.html">Audio source separation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="detection.html">Sound detection and feature extraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tonal_detection.html">Local-max detector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Batch analysis</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Long-term spectrogram maker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lts_viewer.html">Long-term spectrogram viewer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_organize.html">Analysis result aggregation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">soundscape_IR</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Long-term spectrogram maker</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/lts_maker.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-soundscape_IR.soundscape_viewer.lts_maker">
+<span id="long-term-spectrogram-maker"></span><h1>Long-term spectrogram maker<a class="headerlink" href="#module-soundscape_IR.soundscape_viewer.lts_maker" title="Permalink to this headline"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="soundscape_IR.soundscape_viewer.lts_maker.lts_maker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">soundscape_IR.soundscape_viewer.lts_maker.</span></span><span class="sig-name descname"><span class="pre">lts_maker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sensitivity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'wat'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">FFT_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">512</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_skip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_resolution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/meil-brcas-org/soundscape_IR/blob/master/soundscape_viewer/lts_maker.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soundscape_IR.soundscape_viewer.lts_maker.lts_maker" title="Permalink to this definition"></a></dt>
+<dd><p>Making a long-term spectrogram to investigate the temporal and spectral variations of long-duration recordings.</p>
+<p>This class generates a visualization of long-duration recordings called long-term spectrogram. Before running this program, copy a set of recordings obtained from the same recorder (presumably at the same location) to a folder. There are three procedures for making a long-term spectrogram. First, recordings are divided into short segments. Next, each segment is transformed into a spectrogram using discrete Fourier transform (DFT), and each spectrogram is compressed into a vector of power spectrum according to two statistical measurements (median and mean) to retain spectral variation. Finally, all power spectra are concatenated and saved as a mat file.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>sensitivity</strong><span class="classifier">float, default = 0</span></dt><dd><p>Sensitivity of recording system (in dB re 1 V /μPa).</p>
+<p>Use 0 when sensitivity is not available.</p>
+</dd>
+<dt><strong>channel</strong><span class="classifier">int ≥ 1, default = 1</span></dt><dd><p>Recording channel for analysis.</p>
+<p>In stereo recordings, set to 1 for the left channel and set to 2 for the right channel.</p>
+</dd>
+<dt><strong>environment</strong><span class="classifier">{‘wat’, ‘air’}, default = ‘wat’</span></dt><dd><p>Recording environment (underwater or in air) of the audio file.</p>
+</dd>
+<dt><strong>FFT_size</strong><span class="classifier">int &gt; 0, default = 512</span></dt><dd><p>Window size to perform discrete Fourier transform (in samples).</p>
+</dd>
+<dt><strong>initial_skip</strong><span class="classifier">float ≥ 0, default = 0</span></dt><dd><p>Initial duration (in seconds) of each audio recording to skip the audio analysis.</p>
+<p>Some autonomous recorders, e.g., SoundTrap, support the function to investigate changes in microphone/hydrophone sensitivity by generating calibration tones in the beginning of each recording session. Use this parameter for removing the fragment containing calibration tones.</p>
+</dd>
+<dt><strong>time_resolution</strong><span class="classifier">None or float &gt; 0, default = None</span></dt><dd><p>Time resolution of a long-term spectrogram (in seconds).</p>
+<p>For each audio recording, <code class="docutils literal notranslate"><span class="pre">lts_maker</span></code> generates one power spectrum for each fragment according to <code class="docutils literal notranslate"><span class="pre">time_resolution</span></code>. However, if <code class="docutils literal notranslate"><span class="pre">time_resolution</span></code> is not set, only one power spectrum is generated for the entire audio recording. In this case, the <code class="docutils literal notranslate"><span class="pre">time_resolution</span></code> equals the duty cycle of recordings.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Generate a long-term spectrogram of locally saved audio recordings.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">soundscape_IR.soundscape_viewer</span> <span class="kn">import</span> <span class="n">lts_maker</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">LTS_run</span><span class="o">=</span><span class="n">lts_maker</span><span class="p">(</span><span class="n">sensitivity</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">environment</span><span class="o">=</span><span class="s1">&#39;wat&#39;</span><span class="p">,</span> <span class="n">FFT_size</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">initial_skip</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">LTS_run</span><span class="o">.</span><span class="n">collect_folder</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s1">&#39;./wav/&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">LTS_run</span><span class="o">.</span><span class="n">filename_check</span><span class="p">(</span><span class="n">dateformat</span><span class="o">=</span><span class="s1">&#39;yymmddHHMMSS&#39;</span><span class="p">,</span><span class="n">initial</span><span class="o">=</span><span class="s1">&#39;1207984160.&#39;</span><span class="p">,</span><span class="n">year_initial</span><span class="o">=</span><span class="mi">2000</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">LTS_run</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">save_filename</span><span class="o">=</span><span class="s1">&#39;LTS.mat&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Generate an LTS for audio recordings hosted on a Google Drive folder.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">soundscape_IR.soundscape_viewer</span> <span class="kn">import</span> <span class="n">lts_maker</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">LTS_run</span><span class="o">=</span><span class="n">lts_maker</span><span class="p">(</span><span class="n">sensitivity</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">environment</span><span class="o">=</span><span class="s1">&#39;wat&#39;</span><span class="p">,</span> <span class="n">FFT_size</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">initial_skip</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">LTS_run</span><span class="o">.</span><span class="n">collect_Gdrive</span><span class="p">(</span><span class="n">folder_id</span><span class="o">=</span><span class="s1">&#39;XXXXXXXXXXXXXXXXXXXXXXXXXXX&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">LTS_run</span><span class="o">.</span><span class="n">filename_check</span><span class="p">(</span><span class="n">dateformat</span><span class="o">=</span><span class="s1">&#39;yyyymm_ddHHMMSS&#39;</span><span class="p">,</span><span class="n">initial</span><span class="o">=</span><span class="s1">&#39;TW_SiteA_&#39;</span><span class="p">,</span><span class="n">year_initial</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">LTS_run</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">save_filename</span><span class="o">=</span><span class="s1">&#39;LTS.mat&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list">
+<dt class="field-odd">Attributes</dt>
+<dd class="field-odd"><dl>
+<dt><strong>f</strong><span class="classifier">ndarray of shape (frequency,)</span></dt><dd><p>Frequency of spectrogram data.</p>
+</dd>
+<dt><strong>Result_median</strong><span class="classifier">ndarray of shape (time, frequency+1)</span></dt><dd><p>Median-based long-term spectrogram.</p>
+<p>The first column is time, and the subsequent columns are power spectral densities associated with <code class="docutils literal notranslate"><span class="pre">f</span></code>.</p>
+</dd>
+<dt><strong>Result_mean</strong><span class="classifier">ndarray of shape (time, frequency+1)</span></dt><dd><p>Mean-based long-term spectrogram.</p>
+<p>The first column is time, and the subsequent columns are power spectral densities associated with <code class="docutils literal notranslate"><span class="pre">f</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soundscape_IR.soundscape_viewer.lts_maker.lts_maker.collect_Gdrive" title="soundscape_IR.soundscape_viewer.lts_maker.lts_maker.collect_Gdrive"><code class="xref py py-obj docutils literal notranslate"><span class="pre">collect_Gdrive</span></code></a>(folder_id[, file_extension, ...])</p></td>
+<td><p>Specify a Drive folder where the recording files are located.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#soundscape_IR.soundscape_viewer.lts_maker.lts_maker.collect_folder" title="soundscape_IR.soundscape_viewer.lts_maker.lts_maker.collect_folder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">collect_folder</span></code></a>(path[, file_extension])</p></td>
+<td><p>Specify the folder where the recording files are located.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soundscape_IR.soundscape_viewer.lts_maker.lts_maker.filename_check" title="soundscape_IR.soundscape_viewer.lts_maker.lts_maker.filename_check"><code class="xref py py-obj docutils literal notranslate"><span class="pre">filename_check</span></code></a>([dateformat, initial, ...])</p></td>
+<td><p>Check recording time information retrieved from the file name.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#soundscape_IR.soundscape_viewer.lts_maker.lts_maker.run" title="soundscape_IR.soundscape_viewer.lts_maker.lts_maker.run"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run</span></code></a>([save_filename, folder_id, start, ...])</p></td>
+<td><p>Initiate analysis procedures.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="soundscape_IR.soundscape_viewer.lts_maker.lts_maker.collect_Gdrive">
+<span class="sig-name descname"><span class="pre">collect_Gdrive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folder_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_extension</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.wav'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subfolder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/meil-brcas-org/soundscape_IR/blob/master/soundscape_viewer/lts_maker.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soundscape_IR.soundscape_viewer.lts_maker.lts_maker.collect_Gdrive" title="Permalink to this definition"></a></dt>
+<dd><p>Specify a Drive folder where the recording files are located.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>folder_id</strong><span class="classifier">str</span></dt><dd><p>The folder ID of Google Drive folder for analysis.</p>
+<p>See <a class="reference external" href="https://ploi.io/documentation/database/where-do-i-get-google-drive-folder-id">https://ploi.io/documentation/database/where-do-i-get-google-drive-folder-id</a> for the detial of folder ID.</p>
+</dd>
+<dt><strong>file_extension</strong><span class="classifier">{‘.wav’, ‘.WAV’}, default = ‘.wav’</span></dt><dd><p>Data format for analysis.</p>
+</dd>
+<dt><strong>subfolder</strong><span class="classifier">boolean, default = False</span></dt><dd><p>Set to True if subfolders also contain recordings for analysis.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="soundscape_IR.soundscape_viewer.lts_maker.lts_maker.collect_folder">
+<span class="sig-name descname"><span class="pre">collect_folder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_extension</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.wav'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/meil-brcas-org/soundscape_IR/blob/master/soundscape_viewer/lts_maker.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soundscape_IR.soundscape_viewer.lts_maker.lts_maker.collect_folder" title="Permalink to this definition"></a></dt>
+<dd><p>Specify the folder where the recording files are located.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>folder</strong><span class="classifier">str</span></dt><dd><p>Folder path for analysis.</p>
+</dd>
+<dt><strong>file_extension</strong><span class="classifier">{‘.wav’, ‘.WAV’}, default = ‘.wav’</span></dt><dd><p>Data format for analysis.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="soundscape_IR.soundscape_viewer.lts_maker.lts_maker.filename_check">
+<span class="sig-name descname"><span class="pre">filename_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dateformat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'yyyymmdd_HHMMSS'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year_initial</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/meil-brcas-org/soundscape_IR/blob/master/soundscape_viewer/lts_maker.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soundscape_IR.soundscape_viewer.lts_maker.lts_maker.filename_check" title="Permalink to this definition"></a></dt>
+<dd><p>Check recording time information retrieved from the file name.</p>
+<p>Enter the filename information to extract the recording date and time from each audio file. For example, if the file name is ‘KT08_20171118_123000.wav’, please enter <code class="docutils literal notranslate"><span class="pre">initial='KT08_'</span></code> and <code class="docutils literal notranslate"><span class="pre">dateformat='yyyymmdd_HHMMSS'</span></code>.</p>
+<p>If the file name does not contain information of century (when <code class="docutils literal notranslate"><span class="pre">dateformat='yymmdd_HHMMSS'</span></code>), specify century in <code class="docutils literal notranslate"><span class="pre">year_initial</span></code>. For example, the recording ‘KT08_171118_123000.wav’ was made in 2017, then set <code class="docutils literal notranslate"><span class="pre">year_initial=2000</span></code>.</p>
+<p>Example 1: TW-LHC01-150102-001530.wav</p>
+<ul class="simple">
+<li><p>initial=’TW-LHC01-’</p></li>
+<li><p>dateformat=’yymmdd-HHMMSS’</p></li>
+<li><p>year_initial=2000</p></li>
+</ul>
+<p>Example 2: TW-LHC-20150102 001530.wav</p>
+<ul class="simple">
+<li><p>initial=’TW-LHC-’</p></li>
+<li><p>dateformat=’yyyymmdd HHMMSS’</p></li>
+<li><p>year_initial=0</p></li>
+</ul>
+<p>Example 3: 190730053000.wav</p>
+<ul class="simple">
+<li><p>initial=[]</p></li>
+<li><p>dateformat=’yymmddHHMMSS’</p></li>
+<li><p>year_initial=2000</p></li>
+</ul>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>dateformat</strong><span class="classifier">str, default = ‘yyyymmdd_HHMMSS’</span></dt><dd><p>Recording date and time format on the file name, such as ‘yymmddHHMMSS’,  ‘yyyymmddHHMMSS’,  ‘yymmdd_HHMMSS’,  ‘yyyymmdd_HHMMSS’.</p>
+</dd>
+<dt><strong>initial= [] or str, default = []</strong></dt><dd><p>File name initials before the recording date and time information.</p>
+</dd>
+<dt><strong>year_initial= {0, 1900, 2000}, default = 2000</strong></dt><dd><p>Century of recording date.</p>
+<p>For dateformat = ‘yymmddHHMMSS’ or ‘yymmdd_HHMMSS’, use this parameter to declare the century in which the recording is made.</p>
+<p>Set to 0 if dateformat = ‘yyyymmddHHMMSS’ or ‘yyyymmdd_HHMMSS’.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="soundscape_IR.soundscape_viewer.lts_maker.lts_maker.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">save_filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'LTS.mat'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration_read</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/meil-brcas-org/soundscape_IR/blob/master/soundscape_viewer/lts_maker.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soundscape_IR.soundscape_viewer.lts_maker.lts_maker.run" title="Permalink to this definition"></a></dt>
+<dd><p>Initiate analysis procedures.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>save_filename</strong><span class="classifier">str, default = ‘LTS.mat’</span></dt><dd><p>Name of the mat file.</p>
+</dd>
+<dt><strong>folder_id</strong><span class="classifier">[] or str, default = []</span></dt><dd><p>The folder ID of Google Drive folder for saving analysis result.</p>
+<p>See <a class="reference external" href="https://ploi.io/documentation/database/where-do-i-get-google-drive-folder-id">https://ploi.io/documentation/database/where-do-i-get-google-drive-folder-id</a> for the detial of folder ID.</p>
+</dd>
+<dt><strong>start</strong><span class="classifier">int ≥ 1, default = 1</span></dt><dd><p>The file number to begin LTS analysis.</p>
+</dd>
+<dt><strong>num_file</strong><span class="classifier">None or int ≥ 1, default = None</span></dt><dd><p>The number of files after <code class="docutils literal notranslate"><span class="pre">start</span></code> for LTS analysis.</p>
+</dd>
+<dt><strong>duration_read</strong><span class="classifier">None or float &gt; 0, default = None</span></dt><dd><p>When an audio file is too long (e.g., last several hours), reading the entire audio recording at once may occupy too much memory. Specifying the duration (in seconds) for each read can reduce the memory space used and speed up the analysis.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="batch_processing.html" class="btn btn-neutral float-left" title="Batch analysis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="lts_viewer.html" class="btn btn-neutral float-right" title="Long-term spectrogram viewer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Marine Ecoacoustics and Informatics Lab, Academia Sinica.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

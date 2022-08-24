@@ -1,0 +1,7 @@
+Batch analysis
+--------------
+
+.. automodule:: soundscape_IR.soundscape_viewer.batch_processing
+
+.. autoclass:: batch_processing
+    :members: params_spectrogram, params_adaptive_prewhiten, params_separation, params_spectrogram_detection, params_lts_maker, params_feature_extraction, params_tonal_detection, params_load_result, run

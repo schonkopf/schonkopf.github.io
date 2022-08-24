@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sound detection and feature extraction &mdash; soundscape_IR 1.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/my_theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Local-max detector" href="tonal_detection.html" />
+    <link rel="prev" title="Audio source separation" href="source_separation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> soundscape_IR
+          </a>
+              <div class="version">
+                1.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_tutorials.html">Run batch analysis</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="audio_visualization.html">Audio visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source_separation.html">Audio source separation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Sound detection and feature extraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tonal_detection.html">Local-max detector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Batch analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lts_maker.html">Long-term spectrogram maker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lts_viewer.html">Long-term spectrogram viewer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_organize.html">Analysis result aggregation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">soundscape_IR</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Sound detection and feature extraction</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/detection.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-soundscape_IR.soundscape_viewer.utility">
+<span id="sound-detection-and-feature-extraction"></span><h1>Sound detection and feature extraction<a class="headerlink" href="#module-soundscape_IR.soundscape_viewer.utility" title="Permalink to this headline"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="soundscape_IR.soundscape_viewer.utility.spectrogram_detection">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">soundscape_IR.soundscape_viewer.utility.</span></span><span class="sig-name descname"><span class="pre">spectrogram_detection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smooth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimum_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimum_duration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximum_duration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Detection.txt'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status_print</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_result</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_detection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/meil-brcas-org/soundscape_IR/blob/master/soundscape_viewer/utility.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soundscape_IR.soundscape_viewer.utility.spectrogram_detection" title="Permalink to this definition"></a></dt>
+<dd><p>This class applies an energy thresholding method to find regions of interest displayed on a spectrogram.</p>
+<p>It uses a known estimate of minimum signal interval to separate regions of interest and subsequently remove false alarms according to the minimum and maximum signal duration.</p>
+<p>The output is a table containing Begin Time (s), End Time (s), Low Frequency (Hz), High Frequency (Hz), and Maximum SNR (dB). The table is saved in a text file, which can be imported to the Raven software (<a class="reference external" href="https://ravensoundsoftware.com">https://ravensoundsoftware.com</a>).</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>input</strong><span class="classifier">ndarray of shape (time, frequency+1)</span></dt><dd><p>Spectrogram data for analysis.</p>
+<p>The first column is time, and the subsequent columns are power spectral densities (or signal-to-noise ratios) associated with <code class="docutils literal notranslate"><span class="pre">f</span></code>. Use the same spectrogram format generated from <code class="docutils literal notranslate"><span class="pre">audio_visualization</span></code>.</p>
+</dd>
+<dt><strong>f</strong><span class="classifier">ndarray of shape (frequency,)</span></dt><dd><p>Frequency of the input spectrogram data.</p>
+</dd>
+<dt><strong>threshold</strong><span class="classifier">float</span></dt><dd><p>Energy threshold for binarizing the spectrogram data.</p>
+<p>Only time and frequency bins with intensities higher than <code class="docutils literal notranslate"><span class="pre">threshold</span></code> are considered as detections.</p>
+</dd>
+<dt><strong>smooth</strong><span class="classifier">float ≥ 0, default = 0</span></dt><dd><p>Standard deviation of Gaussian kernel for smoothing the spectrogram data.</p>
+<p>See <code class="docutils literal notranslate"><span class="pre">sigma</span></code> in <code class="docutils literal notranslate"><span class="pre">scipy.ndimage.gaussian_filter</span></code> for details.</p>
+</dd>
+<dt><strong>minimum_interval</strong><span class="classifier">float ≥ 0, default = 0</span></dt><dd><p>Minimum time interval (in seconds) for the algorithm to separate two regions of interest.</p>
+<p>If the interval between two signals is shorter than <code class="docutils literal notranslate"><span class="pre">minimum_interval</span></code>, the two signals are considered to be the same detection.</p>
+</dd>
+<dt><strong>minimum_duration, maximum_duration</strong><span class="classifier">None or float &gt; 0, default = None</span></dt><dd><p>Minimum and maximum signal durations of each detection (in seconds).</p>
+</dd>
+<dt><strong>pad_size</strong><span class="classifier">float ≥ 0, default = 0</span></dt><dd><p>Duration that increases the length before and after each detection (in seconds).</p>
+</dd>
+<dt><strong>filename</strong><span class="classifier">str, default = ‘Detection.txt’</span></dt><dd><p>Name of the txt file contains detections.</p>
+</dd>
+<dt><strong>path</strong><span class="classifier">str</span></dt><dd><p>Path to save detection result.</p>
+</dd>
+<dt><strong>folder_id</strong><span class="classifier">[] or str, default = []</span></dt><dd><p>The folder ID of Google Drive folder for saving detection result.</p>
+<p>See <a class="reference external" href="https://ploi.io/documentation/database/where-do-i-get-google-drive-folder-id">https://ploi.io/documentation/database/where-do-i-get-google-drive-folder-id</a> for the detial of folder ID.</p>
+</dd>
+<dt><strong>status_print</strong><span class="classifier">boolean, default = True</span></dt><dd><p>Print file saving process if set to True.</p>
+</dd>
+<dt><strong>show_result</strong><span class="classifier">boolean, default = True</span></dt><dd><p>Plot detection results on the spectrogram if set to True.</p>
+</dd>
+<dt><strong>run_detection</strong><span class="classifier">boolean, default = True</span></dt><dd><p>Run detection procedures if set to True.</p>
+<p>Set to False will generate one detection covering the entire duration of spectrogram. Only set to False for the purpose of extracting acoustic features.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Generate a prewhitened spectrogram and detect high-intensity signals with signal-to-noise ratios higher than 6 dB. Combine consecutive signals with intervals shorter than 0.1 sec for one detection. Only signals with durations ranging between 0.1 and 1 sec are saved.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">soundscape_IR.soundscape_viewer</span> <span class="kn">import</span> <span class="n">audio_visualization</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sound</span> <span class="o">=</span> <span class="n">audio_visualization</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;audio.wav&#39;</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">&#39;./wav/&#39;</span><span class="p">,</span> <span class="n">prewhiten_percent</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">plot_type</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">soundscape_IR.soundscape_viewer</span> <span class="kn">import</span> <span class="n">spectrogram_detection</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sp</span><span class="o">=</span><span class="n">spectrogram_detection</span><span class="p">(</span><span class="n">sound</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">sound</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">smooth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">minimum_interval</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">minimum_duration</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">maximum_duration</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;Detection.txt&#39;</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">&#39;./save/&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Detect regions of interest from a spectrogram that is filtered by using a source separation model. Add 0.1-sec padding before and after each detection.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">soundscape_IR.soundscape_viewer</span> <span class="kn">import</span> <span class="n">source_separation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">=</span><span class="n">source_separation</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">load_model</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;./model/model.mat&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">prediction</span><span class="p">(</span><span class="n">input_data</span><span class="o">=</span><span class="n">sound</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">sound</span><span class="o">.</span><span class="n">f</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">soundscape_IR.soundscape_viewer</span> <span class="kn">import</span> <span class="n">spectrogram_detection</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">source_num</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># Choose the source for signal detection</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sp</span><span class="o">=</span><span class="n">spectrogram_detection</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">separation</span><span class="p">[</span><span class="n">source_num</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">model</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">smooth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">minimum_interval</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">pad_size</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;Detection.txt&#39;</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">&#39;./save/&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>detection</strong><span class="classifier">ndarray of shape (detection,2)</span></dt><dd><p>Begin time (the first column) and end time (the second column) of each detection (row).</p>
+</dd>
+<dt><strong>result</strong><span class="classifier">pandas DataFrame</span></dt><dd><p>A table contains time and frequency boundaries of regions of interest.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soundscape_IR.soundscape_viewer.utility.spectrogram_detection.feature_extraction" title="soundscape_IR.soundscape_viewer.utility.spectrogram_detection.feature_extraction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">feature_extraction</span></code></a>([interval_range, ...])</p></td>
+<td><p>This method extracts spectral and temporal features from regions of interest.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="soundscape_IR.soundscape_viewer.utility.spectrogram_detection.feature_extraction">
+<span class="sig-name descname"><span class="pre">feature_extraction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interval_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[1,</span> <span class="pre">500]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">energy_percentile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Features.mat'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/meil-brcas-org/soundscape_IR/blob/master/soundscape_viewer/utility.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soundscape_IR.soundscape_viewer.utility.spectrogram_detection.feature_extraction" title="Permalink to this definition"></a></dt>
+<dd><p>This method extracts spectral and temporal features from regions of interest.</p>
+<p>Spectral features are extracted by averaging the power spectral densities across time bins. Temporal features are extracted by performing autocorrelation on the time-domain energy envelope of the input spectrogram data. For sounds with repetitive pulse structure, this method generates a time-lagged autocorrelation function that represents the variation of inter-pulse intervals.</p>
+<p>According to the table of detection results, this method will extract spectral and temporal features for each region of interest.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>interval_range</strong><span class="classifier">a list of 2 scalars [min, max], default = [1, 500]</span></dt><dd><p>Minimum and maximum time intervals (in milliseconds) for measuring autocorrelation function.</p>
+<p>The maximum time interval should not be greater than <code class="docutils literal notranslate"><span class="pre">minimum_duration</span></code> in the procedure of <code class="docutils literal notranslate"><span class="pre">spectrogram_detection</span></code>.</p>
+</dd>
+<dt><strong>energy_percentile</strong><span class="classifier">None or float &gt; 0, default = None</span></dt><dd><p>Choose a percentile to represent the energy envelope of spectrogram data.</p>
+<p>Use this parameter when a spectrogram contains high-intensity noise. If <code class="docutils literal notranslate"><span class="pre">energy_percentile</span></code> is not set, the energy envelope is extracted by averaging power spectral densities across frequencies.</p>
+</dd>
+<dt><strong>filename</strong><span class="classifier">str, default = ‘Features.mat’</span></dt><dd><p>Name of the mat file contains feature extraction results.</p>
+</dd>
+<dt><strong>path</strong><span class="classifier">str</span></dt><dd><p>Path to save feature extraction results.</p>
+</dd>
+<dt><strong>folder_id</strong><span class="classifier">[] or str, default = []</span></dt><dd><p>The folder ID of Google Drive folder for saving feature extraction result.</p>
+<p>See <a class="reference external" href="https://ploi.io/documentation/database/where-do-i-get-google-drive-folder-id">https://ploi.io/documentation/database/where-do-i-get-google-drive-folder-id</a> for the detial of folder ID.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Detect a list of signals and extract their spectral and temporal features. Restrict the range of autocorrelation functions between 1 and 200 ms. Features are saved in a mat file.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">soundscape_IR.soundscape_viewer</span> <span class="kn">import</span> <span class="n">spectrogram_detection</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sp</span><span class="o">=</span><span class="n">spectrogram_detection</span><span class="p">(</span><span class="n">sound</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">sound</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">smooth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">minimum_interval</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">minimum_duration</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">maximum_duration</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sp</span><span class="o">.</span><span class="n">feature_extraction</span><span class="p">(</span><span class="n">interval_range</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">200</span><span class="p">],</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;Features.mat&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>PI</strong><span class="classifier">ndarray of shape (autocorrelation function,)</span></dt><dd><p>Array of segment time intervals (in milliseconds).</p>
+</dd>
+<dt><strong>PI_result</strong><span class="classifier">ndarray of shape (detection, autocorrelation function)</span></dt><dd><p>Autocorrelation function(s) of region(s) of interest.</p>
+</dd>
+<dt><strong>f</strong><span class="classifier">ndarray of shape (frequency,)</span></dt><dd><p>Array of sample frequencies (in Hertz).</p>
+</dd>
+<dt><strong>spectral_result</strong><span class="classifier">ndarray of shape (detection, frequency)</span></dt><dd><p>Mean spectrum(s) of region(s) of interest (in dB).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="source_separation.html" class="btn btn-neutral float-left" title="Audio source separation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tonal_detection.html" class="btn btn-neutral float-right" title="Local-max detector" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Marine Ecoacoustics and Informatics Lab, Academia Sinica.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

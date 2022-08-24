@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Audio source separation &mdash; soundscape_IR 1.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/my_theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Sound detection and feature extraction" href="detection.html" />
+    <link rel="prev" title="Audio visualization" href="audio_visualization.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> soundscape_IR
+          </a>
+              <div class="version">
+                1.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_tutorials.html">Run batch analysis</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="audio_visualization.html">Audio visualization</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Audio source separation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="detection.html">Sound detection and feature extraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tonal_detection.html">Local-max detector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Batch analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lts_maker.html">Long-term spectrogram maker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lts_viewer.html">Long-term spectrogram viewer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_organize.html">Analysis result aggregation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">soundscape_IR</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Audio source separation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/source_separation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-soundscape_IR.soundscape_viewer.source_separation">
+<span id="audio-source-separation"></span><h1>Audio source separation<a class="headerlink" href="#module-soundscape_IR.soundscape_viewer.source_separation" title="Permalink to this headline"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="soundscape_IR.soundscape_viewer.source_separation.source_separation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">soundscape_IR.soundscape_viewer.source_separation.</span></span><span class="sig-name descname"><span class="pre">source_separation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feature_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">basis_num</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">60</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/meil-brcas-org/soundscape_IR/blob/master/soundscape_viewer/source_separation.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soundscape_IR.soundscape_viewer.source_separation.source_separation" title="Permalink to this definition"></a></dt>
+<dd><p>This class provides a set of source separation methods based on non-negative matrix factorization (NMF).</p>
+<p>NMF is a machine learning algorithm that iteratively learns to reconstruct a non-negative input matrix V by finding a set of basis functions W and encoding vectors H. The NMF algorithm is based on <code class="docutils literal notranslate"><span class="pre">sklearn.decomposition.NMF</span></code>.</p>
+<p>NMF-based source separation consists of a model training phase and a prediction phase.</p>
+<p>In the training phase, a source separation model can be trained using supervised NMF or unsupervised PC-NMF. If training data is clean, we suggest using supervised NMF for learning source-specific features (Lin &amp; Tsao 2020). If training data is noisy, PC-NMF can learn two sets of basis functions by assuming the target source and noise possess different periodicities (Lin et al. 2017).</p>
+<p>In the prediction phase, adaptive source separation is applied if target sources alter their acoustic characteristics (Kwon et al. 2015), and semi-supervised SS is used when unseen sources are encountered (Smaragdis et al. 2007).</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>feature_length</strong><span class="classifier">int ≥ 1, default = 1</span></dt><dd><p>Number of time bins used in the learning procedure of basis functions.</p>
+<p>The duration of each basis function is determined by multiplying <code class="docutils literal notranslate"><span class="pre">feature_length</span></code> and the time resolution of the input spectrogram. We suggest choosing a minimum length that can cover the basic unit of animal vocalizations (such as a note or syllable of bird songs). Choosing a shorter duration may result in learning fragmented signals, but choosing a longer duration will slow down the computation speed.</p>
+</dd>
+<dt><strong>basis_num</strong><span class="classifier">int ≥ 1, default = 60</span></dt><dd><p>Number of basis functions used in the training phase of source separation.</p>
+<p>Using a larger number of basis functions is expected to learn more diverse features but may generate a set of time-shifting functions sharing the same spectral structure and reduce the abstraction of invariant features.</p>
+</dd>
+<dt><strong>filename</strong><span class="classifier">str</span></dt><dd><p>Path and name of the mat file containing a trained source separation model.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="rff78ecc385aa-1"><span class="brackets">1</span></dt>
+<dd><p>Kwon, K., Shin, J. W., &amp; Kim, N. S. (2015). NMF-Based Speech Enhancement Using Bases Update. IEEE Signal Processing Letters, 22(4), 450–454. <a class="reference external" href="https://doi.org/10.1109/LSP.2014.2362556">https://doi.org/10.1109/LSP.2014.2362556</a></p>
+</dd>
+<dt class="label" id="rff78ecc385aa-2"><span class="brackets">2</span></dt>
+<dd><p>Lin, T.-H., Fang, S.-H., &amp; Tsao, Y. (2017). Improving biodiversity assessment via unsupervised separation of biological sounds from long-duration recordings. Scientific Reports, 7(1), 4547. <a class="reference external" href="https://doi.org/10.1038/s41598-017-04790-7">https://doi.org/10.1038/s41598-017-04790-7</a></p>
+</dd>
+<dt class="label" id="rff78ecc385aa-3"><span class="brackets">3</span></dt>
+<dd><p>Lin, T.-H., &amp; Tsao, Y. (2020). Source separation in ecoacoustics: A roadmap towards versatile soundscape information retrieval. Remote Sensing in Ecology and Conservation, 6(3), 236–247. <a class="reference external" href="https://doi.org/10.1002/rse2.141">https://doi.org/10.1002/rse2.141</a></p>
+</dd>
+<dt class="label" id="rff78ecc385aa-4"><span class="brackets">4</span></dt>
+<dd><p>Smaragdis, P., Raj, B. &amp; Shashanka, M. (2007). Supervised and semi-supervised separation of sounds from single-channel mixtures. Independent Component Analysis and Signal Separation, 414–421. <a class="reference external" href="https://doi.org/10.1007/978-3-540-74494-8_52">https://doi.org/10.1007/978-3-540-74494-8_52</a></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Learn two sets of basis functions and combine them within a model.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">soundscape_IR.soundscape_viewer</span> <span class="kn">import</span> <span class="n">source_separation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Train 1st model</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">=</span><span class="n">source_separation</span><span class="p">(</span><span class="n">feature_length</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">basis_num</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">learn_feature</span><span class="p">(</span><span class="n">sound1</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">sound1</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;NMF&#39;</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Train 2nd model</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model2</span><span class="o">=</span><span class="n">source_separation</span><span class="p">(</span><span class="n">feature_length</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">basis_num</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model2</span><span class="o">.</span><span class="n">learn_feature</span><span class="p">(</span><span class="n">sound2</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">sound2</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;NMF&#39;</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Merge the two models</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">merge</span><span class="p">([</span><span class="n">model2</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Train a source separation model using PC-NMF and save the model as a mat file.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">soundscape_IR.soundscape_viewer</span> <span class="kn">import</span> <span class="n">source_separation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">=</span><span class="n">source_separation</span><span class="p">(</span><span class="n">feature_length</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">basis_num</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">learn_feature</span><span class="p">(</span><span class="n">input_data</span><span class="o">=</span><span class="n">sound_train</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">sound_train</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;PCNMF&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">save_model</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;model.mat&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Use a trained source separation model for prediction and plot the separation results</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">soundscape_IR.soundscape_viewer</span> <span class="kn">import</span> <span class="n">source_separation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Load a saved model and perform source separation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">=</span><span class="n">source_separation</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;model.mat&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">prediction</span><span class="p">(</span><span class="n">input_data</span><span class="o">=</span><span class="n">sound_predict</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">sound_predict</span><span class="o">.</span><span class="n">f</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># View individual reconstructed spectrogram</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">plot_nmf</span><span class="p">(</span><span class="n">plot_type</span> <span class="o">=</span> <span class="s1">&#39;separation&#39;</span><span class="p">,</span> <span class="n">source</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">plot_nmf</span><span class="p">(</span><span class="n">plot_type</span> <span class="o">=</span> <span class="s1">&#39;separation&#39;</span><span class="p">,</span> <span class="n">source</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Apply adaptive and semi-supervised source separation in prediction</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">soundscape_IR.soundscape_viewer</span> <span class="kn">import</span> <span class="n">source_separation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Enable adaptive SS by using adaptive_alpha</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Enable semi-supervised SS by using additional_basis</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">=</span><span class="n">source_separation</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;model.mat&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">prediction</span><span class="p">(</span><span class="n">input_data</span><span class="o">=</span><span class="n">sound_predict</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">sound_predict</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="n">adaptive_alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">additional_basis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Apply adaptive source separation for the target source, but not for the noise source.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">soundscape_IR.soundscape_viewer</span> <span class="kn">import</span> <span class="n">source_separation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Enable adaptive SS for 1st source, not for 2nd source</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">=</span><span class="n">source_separation</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;model.mat&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">prediction</span><span class="p">(</span><span class="n">input_data</span><span class="o">=</span><span class="n">sound_predict</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">sound_predict</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="n">adaptive_alpha</span><span class="o">=</span><span class="p">[</span><span class="mf">0.25</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">additional_basis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soundscape_IR.soundscape_viewer.source_separation.source_separation.learn_feature" title="soundscape_IR.soundscape_viewer.source_separation.source_separation.learn_feature"><code class="xref py py-obj docutils literal notranslate"><span class="pre">learn_feature</span></code></a>(input_data, f[, alpha, ...])</p></td>
+<td><p>This method supports the use of NMF or PC-NMF in the feature learning procedure.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#soundscape_IR.soundscape_viewer.source_separation.source_separation.load_model" title="soundscape_IR.soundscape_viewer.source_separation.source_separation.load_model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_model</span></code></a>(filename[, model_check])</p></td>
+<td><p>Load a source separation model</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soundscape_IR.soundscape_viewer.source_separation.source_separation.merge" title="soundscape_IR.soundscape_viewer.source_separation.source_separation.merge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge</span></code></a>(model)</p></td>
+<td><p>Merge multiple source separation models.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#soundscape_IR.soundscape_viewer.source_separation.source_separation.plot_nmf" title="soundscape_IR.soundscape_viewer.source_separation.source_separation.plot_nmf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_nmf</span></code></a>([plot_type, source, time_range, ...])</p></td>
+<td><p>Generate a figure to show the content of basis functions or encoding vectors learned in a source separation model.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soundscape_IR.soundscape_viewer.source_separation.source_separation.prediction" title="soundscape_IR.soundscape_viewer.source_separation.source_separation.prediction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prediction</span></code></a>(input_data, f[, iter, ...])</p></td>
+<td><p>Perform prediction in source separation procedures.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#soundscape_IR.soundscape_viewer.source_separation.source_separation.save_model" title="soundscape_IR.soundscape_viewer.source_separation.source_separation.save_model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_model</span></code></a>([filename, folder_id])</p></td>
+<td><p>Save basis functions and model parameters</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soundscape_IR.soundscape_viewer.source_separation.source_separation.specify_target" title="soundscape_IR.soundscape_viewer.source_separation.source_separation.specify_target"><code class="xref py py-obj docutils literal notranslate"><span class="pre">specify_target</span></code></a>(index)</p></td>
+<td><p>This method specifies the target source from the two sound sources learned by using PC-NMF.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="soundscape_IR.soundscape_viewer.source_separation.source_separation.learn_feature">
+<span class="sig-name descname"><span class="pre">learn_feature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'NMF'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_result</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/meil-brcas-org/soundscape_IR/blob/master/soundscape_viewer/source_separation.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soundscape_IR.soundscape_viewer.source_separation.source_separation.learn_feature" title="Permalink to this definition"></a></dt>
+<dd><p>This method supports the use of NMF or PC-NMF in the feature learning procedure.</p>
+<p>Use the NMF method when a training spectrogram is clean.</p>
+<p>Use the PC-NMF method when a training spectrogram contains significant noise. Note that PC-NMF assumes that the target source and noise display different periodicities on the input spectrogram.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>input_data</strong><span class="classifier">ndarray of shape (time, frequency+1)</span></dt><dd><p>Spectrogram data for source separation.</p>
+<p>The first column is time, and the subsequent columns are power spectral densities associated with <code class="docutils literal notranslate"><span class="pre">f</span></code>. Using the same spectrogram format generated from <code class="docutils literal notranslate"><span class="pre">audio_visualization</span></code>.</p>
+</dd>
+<dt><strong>f</strong><span class="classifier">ndarray of shape (frequency,)</span></dt><dd><p>Frequency of spectrogram data.</p>
+</dd>
+<dt><strong>alpha</strong><span class="classifier">float, default=0</span></dt><dd><p>Constant that multiplies the regularization terms of W.</p>
+<p>See the introduction of <code class="docutils literal notranslate"><span class="pre">alpha_W</span></code> in <code class="docutils literal notranslate"><span class="pre">sklearn.decomposition.NMF</span></code>.</p>
+</dd>
+<dt><strong>method</strong><span class="classifier">{‘NMF’, ‘PCNMF’}, default = ‘NMF’</span></dt><dd><p>Type of NMF method for model training.</p>
+<p>Use the NMF method when a training spectrogram is clean.</p>
+<p>Use the PC-NMF method when a training spectrogram contains significant noise.</p>
+</dd>
+<dt><strong>iter</strong><span class="classifier">int ≥ 1, default = 200</span></dt><dd><p>Number of iterations for learning spectral features.</p>
+</dd>
+<dt><strong>show_result</strong><span class="classifier">boolean, default = False</span></dt><dd><p>Plot learned basis functions and reconstructed spectrogram if set to True.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Attributes</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>f</strong><span class="classifier">ndarray of shape (frequency,)</span></dt><dd><p>Frequency of spectrogram data.</p>
+</dd>
+<dt><strong>time_vec</strong><span class="classifier">ndarray of shape (time,)</span></dt><dd><p>Array of segment time of spectrogram data.</p>
+</dd>
+<dt><strong>W</strong><span class="classifier">ndarray of shape (frequency*feature_length, basis_num)</span></dt><dd><p>Basis functions (spectral features) essential for reconstructing the input spectrogram.</p>
+</dd>
+<dt><strong>H</strong><span class="classifier">ndarray of shape (basis_num, time_vec)</span></dt><dd><p>Encoding vectors describing the temporal activations of each basis function in the input spectrogram.</p>
+</dd>
+<dt><strong>source_num</strong><span class="classifier">int ≥ 1</span></dt><dd><p>Number of sources learned in a source separation model.</p>
+</dd>
+<dt><strong>W_cluster</strong><span class="classifier">ndarray of shape (basis_num,)</span></dt><dd><p>Array of source indicator of basis functions.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="soundscape_IR.soundscape_viewer.source_separation.source_separation.load_model">
+<span class="sig-name descname"><span class="pre">load_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_check</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/meil-brcas-org/soundscape_IR/blob/master/soundscape_viewer/source_separation.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soundscape_IR.soundscape_viewer.source_separation.source_separation.load_model" title="Permalink to this definition"></a></dt>
+<dd><p>Load a source separation model</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>filename</strong><span class="classifier">str</span></dt><dd><p>Name of the mat file.</p>
+</dd>
+<dt><strong>model_check</strong><span class="classifier">boolean, default = True</span></dt><dd><p>Print model parameters if set to True.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="soundscape_IR.soundscape_viewer.source_separation.source_separation.merge">
+<span class="sig-name descname"><span class="pre">merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/meil-brcas-org/soundscape_IR/blob/master/soundscape_viewer/source_separation.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soundscape_IR.soundscape_viewer.source_separation.source_separation.merge" title="Permalink to this definition"></a></dt>
+<dd><p>Merge multiple source separation models.</p>
+<p>The principle is to use one model to merge the other models trained using NMF or PC-NMF. For models trained by using PC-NMF, please specify their target sources before the merge procedure. This method gives each target source a unique source indicator but combines all noise sources into the same source indicator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>model</strong><span class="classifier">a list of models</span></dt><dd><p>Source separation models trained using NMF or PC-NMF.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Train three models and combine them into one model.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">soundscape_IR.soundscape_viewer</span> <span class="kn">import</span> <span class="n">source_separation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># 1st model</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model_1</span><span class="o">=</span><span class="n">source_separation</span><span class="p">(</span><span class="n">feature_length</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">basis_num</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model_1</span><span class="o">.</span><span class="n">learn_feature</span><span class="p">(</span><span class="n">input_data</span><span class="o">=</span><span class="n">sound_1</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">sound_1</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;NMF&#39;</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># 2nd model</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model_2</span><span class="o">=</span><span class="n">source_separation</span><span class="p">(</span><span class="n">feature_length</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">basis_num</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model_2</span><span class="o">.</span><span class="n">learn_feature</span><span class="p">(</span><span class="n">input_data</span><span class="o">=</span><span class="n">sound_2</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">sound_2</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;PCNMF&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model_2</span><span class="o">.</span><span class="n">specify_target</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># Assuming the 2nd source is the target source</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># 3rd model</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model_3</span><span class="o">=</span><span class="n">source_separation</span><span class="p">(</span><span class="n">feature_length</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">basis_num</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model_3</span><span class="o">.</span><span class="n">learn_feature</span><span class="p">(</span><span class="n">input_data</span><span class="o">=</span><span class="n">sound_3</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">sound_3</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;PCNMF&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model_3</span><span class="o">.</span><span class="n">specify_target</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># Assuming the 1st source is the target source</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Merge the three models</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model_1</span><span class="o">.</span><span class="n">merge</span><span class="p">([</span><span class="n">model_2</span><span class="p">,</span> <span class="n">model_3</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="soundscape_IR.soundscape_viewer.source_separation.source_separation.plot_nmf">
+<span class="sig-name descname"><span class="pre">plot_nmf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plot_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'W'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">14</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig_height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/meil-brcas-org/soundscape_IR/blob/master/soundscape_viewer/source_separation.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soundscape_IR.soundscape_viewer.source_separation.source_separation.plot_nmf" title="Permalink to this definition"></a></dt>
+<dd><p>Generate a figure to show the content of basis functions or encoding vectors learned in a source separation model.</p>
+<p>Alternatively, plot the reconstructed spectrogram of each sound source.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>plot_type</strong><span class="classifier">{‘W’, ‘H’, ‘separation’}, default = ‘W’</span></dt><dd><p>Type of content for plotting.</p>
+<p>Set to ‘W’ for plotting basis functions, set to ‘H’ for plotting encoding vectors, and set to ‘separation’ for plotting a reconstructed spectrogram.</p>
+</dd>
+<dt><strong>source</strong><span class="classifier">None or int ≥ 1</span></dt><dd><p>Source number (start from 1), with a maximum value according to the number of sources learned.</p>
+<p>For <code class="docutils literal notranslate"><span class="pre">plot_type</span> <span class="pre">=</span> <span class="pre">{'W',</span> <span class="pre">'H'}</span></code>, this method will plot all basis functions if <code class="docutils literal notranslate"><span class="pre">source</span></code> is not set. For <code class="docutils literal notranslate"><span class="pre">plot_type='separation'</span></code>, <code class="docutils literal notranslate"><span class="pre">source</span></code> must be specified.</p>
+</dd>
+<dt><strong>time_range</strong><span class="classifier">None or list of 2 scalars [min, max]</span></dt><dd><p>Time range to plot ‘H’ and ‘separation’.</p>
+</dd>
+<dt><strong>fig_width, fig_height</strong><span class="classifier">float &gt; 0</span></dt><dd><p>Figure width and height.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="soundscape_IR.soundscape_viewer.source_separation.source_separation.prediction">
+<span class="sig-name descname"><span class="pre">prediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adaptive_alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_basis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/meil-brcas-org/soundscape_IR/blob/master/soundscape_viewer/source_separation.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soundscape_IR.soundscape_viewer.source_separation.source_separation.prediction" title="Permalink to this definition"></a></dt>
+<dd><p>Perform prediction in source separation procedures. This method supports conventional NMF, adaptive NMF, and semi-supervised NMF.</p>
+<p>Set <code class="docutils literal notranslate"><span class="pre">adaptive_alpha</span></code> and <code class="docutils literal notranslate"><span class="pre">additional_basis</span></code> to 0 for using conventional NMF, which assumes that the testing spectrogram contains the same target sources and noise sources as the training spectrograms. Apply adaptive source separation if target sources alter their acoustic characteristics. This can be done by setting <code class="docutils literal notranslate"><span class="pre">adaptive_alpha</span></code>. Apply semi-supervised source separation when unseen sources are encountered. This can be done by setting <code class="docutils literal notranslate"><span class="pre">additional_basis</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">adaptive_alpha</span></code> can be a value (apply for all sources) or a list of scalars (apply for different sources according to the source indicator information <code class="docutils literal notranslate"><span class="pre">W_cluster</span></code>.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>input_data</strong><span class="classifier">ndarray of shape (time, frequency+1)</span></dt><dd><p>Spectrogram data for source separation.</p>
+<p>The first column is time, and the subsequent columns are power spectral densities associated with <code class="docutils literal notranslate"><span class="pre">f</span></code>. Using the same spectrogram format generated from <code class="docutils literal notranslate"><span class="pre">audio_visualization</span></code>.</p>
+</dd>
+<dt><strong>f</strong><span class="classifier">ndarray of shape (frequency,)</span></dt><dd><p>Frequency of spectrogram data.</p>
+</dd>
+<dt><strong>iter</strong><span class="classifier">int ≥ 1, default = 50</span></dt><dd><p>Number of iterations for predicting source behaviors.</p>
+</dd>
+<dt><strong>adaptive_alpha</strong><span class="classifier">float [0, 1) or a list of scalars, default = 0</span></dt><dd><p>Ratio to update basis functions in each iteration of adaptive source separation.</p>
+<p>The choice of <code class="docutils literal notranslate"><span class="pre">adaptive_alpha</span></code> depends on the prior knowledge regarding whether the trained basis functions are representative of the target sources. If <code class="docutils literal notranslate"><span class="pre">adaptive_alpha</span></code> equals 0, we assume that the spectral features of target sources are invariant. If <code class="docutils literal notranslate"><span class="pre">adaptive_alpha</span></code> equals 1, the basis functions are set to be freely updated.</p>
+<p>Provide a list of scalars to set <code class="docutils literal notranslate"><span class="pre">adaptive_alpha</span></code> for different sound sources.</p>
+</dd>
+<dt><strong>additional_basis</strong><span class="classifier">int ≥ 0, default = 0</span></dt><dd><p>Adding a set of basis functions initiated by random values into a source separation model to enable semi-supervised source separation.</p>
+<p>During the iterative updating procedure, the trained basis functions are fixed (if adaptive source separation is inactivated), but the newly added basis functions can update themselves through the standard NMF update rule. For mixtures containing many new sources, a higher number of <code class="docutils literal notranslate"><span class="pre">additional_basis</span></code> can give more building blocks to perform spectrogram reconstruction.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Attributes</dt>
+<dd class="field-even"><dl>
+<dt><strong>separation</strong><span class="classifier">ndarray of shape (source_num,)</span></dt><dd><p>Reconstructed spectrograms of sources separated by using a source separation model.</p>
+</dd>
+<dt><strong>relative_level</strong><span class="classifier">ndarray of shape (source_num,)</span></dt><dd><p>Intensities of sources separated by using a source separation model.</p>
+<p>For each source, the intensity at each time bin is an integration of signal-to-noise ratio along the frequency domain.</p>
+</dd>
+<dt><strong>original_level</strong><span class="classifier">ndarray of shape (time,)</span></dt><dd><p>Time-series intensities of the input spectrogram.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="soundscape_IR.soundscape_viewer.source_separation.source_separation.save_model">
+<span class="sig-name descname"><span class="pre">save_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'NMF_model.mat'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/meil-brcas-org/soundscape_IR/blob/master/soundscape_viewer/source_separation.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soundscape_IR.soundscape_viewer.source_separation.source_separation.save_model" title="Permalink to this definition"></a></dt>
+<dd><p>Save basis functions and model parameters</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>filename</strong><span class="classifier">str, default = ‘NMF_model.mat’</span></dt><dd><p>Name of the mat file.</p>
+</dd>
+<dt><strong>folder_id</strong><span class="classifier">[] or str, default = []</span></dt><dd><p>The folder ID of Google Drive folder for saving model.</p>
+<p>See <a class="reference external" href="https://ploi.io/documentation/database/where-do-i-get-google-drive-folder-id">https://ploi.io/documentation/database/where-do-i-get-google-drive-folder-id</a> for the detial of folder ID.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="soundscape_IR.soundscape_viewer.source_separation.source_separation.specify_target">
+<span class="sig-name descname"><span class="pre">specify_target</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/meil-brcas-org/soundscape_IR/blob/master/soundscape_viewer/source_separation.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soundscape_IR.soundscape_viewer.source_separation.source_separation.specify_target" title="Permalink to this definition"></a></dt>
+<dd><p>This method specifies the target source from the two sound sources learned by using PC-NMF.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>index</strong><span class="classifier">int ≥ 1</span></dt><dd><p>Source number (start from 1) associated with target source.</p>
+<p>In the method of <code class="docutils literal notranslate"><span class="pre">learn_feature</span></code>, PC-NMF only learns 2 sound sources. Please set <code class="docutils literal notranslate"><span class="pre">index</span></code> to 1 or 2.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="audio_visualization.html" class="btn btn-neutral float-left" title="Audio visualization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="detection.html" class="btn btn-neutral float-right" title="Sound detection and feature extraction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Marine Ecoacoustics and Informatics Lab, Academia Sinica.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

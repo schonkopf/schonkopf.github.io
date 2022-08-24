@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Audio visualization &mdash; soundscape_IR 1.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/my_theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Audio source separation" href="source_separation.html" />
+    <link rel="prev" title="Run batch analysis" href="batch_tutorials.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> soundscape_IR
+          </a>
+              <div class="version">
+                1.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_tutorials.html">Run batch analysis</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Audio visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source_separation.html">Audio source separation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="detection.html">Sound detection and feature extraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tonal_detection.html">Local-max detector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Batch analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lts_maker.html">Long-term spectrogram maker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lts_viewer.html">Long-term spectrogram viewer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_organize.html">Analysis result aggregation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">soundscape_IR</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Audio visualization</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/audio_visualization.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-soundscape_IR.soundscape_viewer.utility">
+<span id="audio-visualization"></span><h1>Audio visualization<a class="headerlink" href="#module-soundscape_IR.soundscape_viewer.utility" title="Permalink to this headline"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="soundscape_IR.soundscape_viewer.utility.audio_visualization">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">soundscape_IR.soundscape_viewer.utility.</span></span><span class="sig-name descname"><span class="pre">audio_visualization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset_read</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration_read</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">FFT_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">512</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_resolution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window_overlap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitivity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'wat'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Spectrogram'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prewhiten_percent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mel_comp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/meil-brcas-org/soundscape_IR/blob/master/soundscape_viewer/utility.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soundscape_IR.soundscape_viewer.utility.audio_visualization" title="Permalink to this definition"></a></dt>
+<dd><p>This class loads the waveform of an audio recording (only WAVE files) and applies discrete Fourier transform to generate a spectrogram on the Hertz or Mel scale.</p>
+<p>Two noise reduction methods are provided. Welch’s method reduces random noise by measuring the average power spectrum over a short period of time (Welch 1967).</p>
+<p>Spectrogram prewhitening method finds the spectral pattern of background noise by calculating a specific percentile of power spectral densities at each frequency bin and subsequently subtracting the entire spectrogram from the background noise (Lin et al. 2021). After the prewhitening procedure, sound intensities are converted into signal-to-noise ratios.</p>
+<p>This class can also generate a concatenated spectrogram of annotated fragments by importing a text file containing annotations. The text file can be prepared using the Raven software (<a class="reference external" href="https://ravensoundsoftware.com">https://ravensoundsoftware.com</a>).</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>filename</strong><span class="classifier">str</span></dt><dd><p>Name of the audio file.</p>
+</dd>
+<dt><strong>path</strong><span class="classifier">None or str, default = None</span></dt><dd><p>Path of the input audio file.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">path</span></code> is not set, current folder is used.</p>
+</dd>
+<dt><strong>channel</strong><span class="classifier">int ≥ 1, default = 1</span></dt><dd><p>Recording channel for analysis.</p>
+<p>In stereo recordings, set to 1 for the left channel and set to 2 for the right channel.</p>
+</dd>
+<dt><strong>offset_read</strong><span class="classifier">float ≥ 0, default = 0</span></dt><dd><p>Start reading time of the input audio file (in seconds).</p>
+</dd>
+<dt><strong>duration_read</strong><span class="classifier">None or float &gt; 0, default = None</span></dt><dd><p>Duration load after <code class="docutils literal notranslate"><span class="pre">offset_read</span></code> (in seconds).</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">duration_read</span></code> is not set, the entire audio file after <code class="docutils literal notranslate"><span class="pre">offset_read</span></code> is processed.</p>
+</dd>
+<dt><strong>FFT_size</strong><span class="classifier">int &gt; 0, default = 512</span></dt><dd><p>Window size to perform discrete Fourier transform (in samples).</p>
+</dd>
+<dt><strong>window_overlap</strong><span class="classifier">float [0, 1), default = 0.5</span></dt><dd><p>Ratio of overlap between consecutive windows.</p>
+</dd>
+<dt><strong>time_resolution</strong><span class="classifier">None or float &gt; 0, default = None</span></dt><dd><p>Applying Welch’s method to calculate averaging power spectra.</p>
+<p>After generating a regular spectrogram, a mean power spectrum is calculated within the range of <code class="docutils literal notranslate"><span class="pre">time_resolution</span></code> (in seconds).</p>
+<p><code class="docutils literal notranslate"><span class="pre">time_resolution</span></code> should not be smaller than (1-window_overlap)*FFT_size/sf, which is the original time resolution of a regular spectrogram. <code class="docutils literal notranslate"><span class="pre">sf</span></code> represents the sampling frequency of an audio file.</p>
+</dd>
+<dt><strong>f_range</strong><span class="classifier">None or a list of 2 scalars [min, max], default = None</span></dt><dd><p>Minimum and maximum frequencies of the spectrogram.</p>
+</dd>
+<dt><strong>prewhiten_percent</strong><span class="classifier">None or float [0, 100), default = None</span></dt><dd><p>Applying prewhitening method to suppress background noise and convert power spectral densities into signal-to-noise ratios.</p>
+<p>After generating a regular spectrogram and applying Welch’s averaging method, the spectral pattern of background noise is estimated by calculating the percentile of power spectral densities in each frequency bin. Subtracting background noise from the whole spectrogram, signal-to-noise ratios below 0 are converted to 0.</p>
+</dd>
+<dt><strong>mel_comp</strong><span class="classifier">None or int ≥ 0, default = None</span></dt><dd><p>Number of Mel bands to generate.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">mel_comp</span></code> is not set, a Hertz scaled spectrogram is generated.</p>
+</dd>
+<dt><strong>sensitivity</strong><span class="classifier">float, default = 0</span></dt><dd><p>Recording sensitivity of the input audio file (in dB re 1 V/μPa).</p>
+<p>Set to 0 when sensitivity information is not available.</p>
+</dd>
+<dt><strong>environment</strong><span class="classifier">{‘wat’, ‘air’}, default = ‘wat’</span></dt><dd><p>Recording environment (underwater or in air) of the input audio file.</p>
+</dd>
+<dt><strong>plot_type</strong><span class="classifier">None or {‘Spectrogram’, ‘Waveform’, ‘Both’}, default = ‘Spectrogram’</span></dt><dd><p>Choose to only generate a spectrogram or a waveform, or do both plots.</p>
+</dd>
+<dt><strong>vmin, vmax</strong><span class="classifier">None or float, default = None</span></dt><dd><p>The data range that the colormap covers.</p>
+<p>By default (None), the colormap covers the complete value range of the spectrogram.</p>
+</dd>
+<dt><strong>annotation</strong><span class="classifier">None or str, default = None</span></dt><dd><p>Path and name of the text file containing annotations.</p>
+<p>The text file should be saved using the format supported by the Raven software (<a class="reference external" href="https://ravensoundsoftware.com">https://ravensoundsoftware.com</a>).</p>
+</dd>
+<dt><strong>padding</strong><span class="classifier">float ≥ 0, default = 0</span></dt><dd><p>Duration that increase the length before and after each annotation (in seconds).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="r3f47809d6cc0-1"><span class="brackets">1</span></dt>
+<dd><p>Welch, P. D. (1967). The use of Fast Fourier Transform for the estimation of power spectra: A method based on time averaging over short, modified periodograms. IEEE Transactions on Audio and Electroacoustics, 15 (2): 70–73. <a class="reference external" href="https://doi.org/10.1109/TAU.1967.1161901">https://doi.org/10.1109/TAU.1967.1161901</a></p>
+</dd>
+<dt class="label" id="r3f47809d6cc0-2"><span class="brackets">2</span></dt>
+<dd><p>Lin, T.-H., Akamatsu, T., &amp; Tsao, Y. (2021). Sensing ecosystem dynamics via audio source separation: A case study of marine soundscapes off northeastern Taiwan. PLoS Computational Biology, 17(2), e1008698. <a class="reference external" href="https://doi.org/10.1371/journ">https://doi.org/10.1371/journ</a> al.pcbi.1008698</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Load an audio recording and generate the associated waveform and spectrogram.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">soundscape_IR.soundscape_viewer</span> <span class="kn">import</span> <span class="n">audio_visualization</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sound</span> <span class="o">=</span> <span class="n">audio_visualization</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;audio.wav&#39;</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">&#39;./wav/&#39;</span><span class="p">,</span> <span class="n">f_range</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8000</span><span class="p">],</span> <span class="n">plot_type</span><span class="o">=</span><span class="s1">&#39;Both&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Use Welch’s method to suppress random noise and reduce time resolution.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">soundscape_IR.soundscape_viewer</span> <span class="kn">import</span> <span class="n">audio_visualization</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sound</span> <span class="o">=</span> <span class="n">audio_visualization</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;audio.wav&#39;</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">&#39;./wav/&#39;</span><span class="p">,</span> <span class="n">time_resolution</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">f_range</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8000</span><span class="p">],</span> <span class="n">plot_type</span><span class="o">=</span><span class="s1">&#39;Spectrogram&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Generate a prewhitened spectrogram in Mel scale.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">soundscape_IR.soundscape_viewer</span> <span class="kn">import</span> <span class="n">audio_visualization</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sound</span> <span class="o">=</span> <span class="n">audio_visualization</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;audio.wav&#39;</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">&#39;./wav/&#39;</span><span class="p">,</span> <span class="n">FFT_size</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span> <span class="n">prewhiten_percent</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">mel_comp</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">plot_type</span><span class="o">=</span><span class="s1">&#39;Spectrogram&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Generate a concatenated spectrogram by importing annotations, with 0.5 s padding before and after each annotation.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">soundscape_IR.soundscape_viewer</span> <span class="kn">import</span> <span class="n">audio_visualization</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sound</span> <span class="o">=</span> <span class="n">audio_visualization</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;audio.wav&#39;</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">&#39;./wav/&#39;</span><span class="p">,</span> <span class="n">annotation</span><span class="o">=</span><span class="s1">&#39;./txt/annotations.txt&#39;</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list">
+<dt class="field-odd">Attributes</dt>
+<dd class="field-odd"><dl>
+<dt><strong>sf</strong><span class="classifier">int</span></dt><dd><p>Sampling frequency of the input audio file.</p>
+</dd>
+<dt><strong>x</strong><span class="classifier">ndarray of shape (time,)</span></dt><dd><p>Waveform data, with subtraction of the DC value.</p>
+</dd>
+<dt><strong>f</strong><span class="classifier">ndarray of shape (frequency,)</span></dt><dd><p>Frequency of spectrogram data (in Hertz).</p>
+</dd>
+<dt><strong>data</strong><span class="classifier">ndarray of shape (time, frequency+1)</span></dt><dd><p>Log-scaled power spectral densities (in dB).</p>
+<p>The first column is time, and the subsequent columns are power spectral densities associated with <code class="docutils literal notranslate"><span class="pre">f</span></code>.</p>
+</dd>
+<dt><strong>phase</strong><span class="classifier">ndarray of shape (frequency,time)</span></dt><dd><p>Phase of the spectrogram data.</p>
+<p>Not available when <code class="docutils literal notranslate"><span class="pre">time_resolution</span></code> is set.</p>
+</dd>
+<dt><strong>ambient</strong><span class="classifier">ndarray of shape (frequency,)</span></dt><dd><p>Background noise estimated using the spectrogram prewhitening method.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soundscape_IR.soundscape_viewer.utility.audio_visualization.convert_audio" title="soundscape_IR.soundscape_viewer.utility.audio_visualization.convert_audio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">convert_audio</span></code></a>(magnitude_spec[, snr_factor])</p></td>
+<td><p>This method recovers a time-domain waveform from a magnitude spectrogram by using inverse discrete Fourier transform.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="soundscape_IR.soundscape_viewer.utility.audio_visualization.convert_audio">
+<span class="sig-name descname"><span class="pre">convert_audio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">magnitude_spec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snr_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/meil-brcas-org/soundscape_IR/blob/master/soundscape_viewer/utility.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soundscape_IR.soundscape_viewer.utility.audio_visualization.convert_audio" title="Permalink to this definition"></a></dt>
+<dd><p>This method recovers a time-domain waveform from a magnitude spectrogram by using inverse discrete Fourier transform.</p>
+<p>The input spectrogram should be prepared in Hertz scale. Phase data is necessary during the inverse procedure,  so <code class="docutils literal notranslate"><span class="pre">time_resolution</span></code>, <code class="docutils literal notranslate"><span class="pre">f_range</span></code>, and <code class="docutils literal notranslate"><span class="pre">mel_comp</span></code> should not be used when loading an audio file.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>magnitude_spec</strong><span class="classifier">ndarray of shape (time, frequency+1)</span></dt><dd><p>Log-scaled power spectral densities, presumably to be noise filtered.</p>
+<p>The first column is time, and the subsequent columns are power spectral densities associated with <code class="docutils literal notranslate"><span class="pre">f</span></code>.</p>
+</dd>
+<dt><strong>snr_factor</strong><span class="classifier">float &gt; 0, default=1</span></dt><dd><p>A ratio for amplifying the input signal.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Load an audio recording and apply spectrogram prewhitening to suppress background noise. Then, use the prewhitened spectrogram to generate a waveform.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">soundscape_IR.soundscape_viewer</span> <span class="kn">import</span> <span class="n">audio_visualization</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sound</span> <span class="o">=</span> <span class="n">audio_visualization</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;audio.wav&#39;</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">&#39;./wav/&#39;</span><span class="p">,</span> <span class="n">FFT_size</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">window_overlap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">prewhiten_percent</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">plot_type</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sound</span><span class="o">.</span><span class="n">convert_audio</span><span class="p">(</span><span class="n">sound</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">snr_factor</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Audio</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Audio</span><span class="p">(</span><span class="n">sound</span><span class="o">.</span><span class="n">xrec</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="n">sound</span><span class="o">.</span><span class="n">sf</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Use a source separation model to separate non-target signals and reconstruct the waveform of target source.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">soundscape_IR.soundscape_viewer</span> <span class="kn">import</span> <span class="n">source_separation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">=</span><span class="n">source_separation</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;model.mat&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">prediction</span><span class="p">(</span><span class="n">input_data</span><span class="o">=</span><span class="n">sound</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">sound</span><span class="o">.</span><span class="n">f</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sound</span><span class="o">.</span><span class="n">convert_audio</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">separation</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">snr_factor</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>xrec</strong><span class="classifier">ndarray of shape (time,)</span></dt><dd><p>Reconstructed waveform data.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="batch_tutorials.html" class="btn btn-neutral float-left" title="Run batch analysis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="source_separation.html" class="btn btn-neutral float-right" title="Audio source separation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Marine Ecoacoustics and Informatics Lab, Academia Sinica.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Run batch analysis &mdash; soundscape_IR 1.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/my_theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Audio visualization" href="audio_visualization.html" />
+    <link rel="prev" title="Quick start" href="quickstart.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> soundscape_IR
+          </a>
+              <div class="version">
+                1.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick start</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Run batch analysis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#spectrogram-concatenation">Spectrogram concatenation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#source-separation-and-spectrogram-detection">Source separation and spectrogram detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adaptive-and-semi-supervised-source-separation">Adaptive and semi-supervised source separation</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="audio_visualization.html">Audio visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source_separation.html">Audio source separation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="detection.html">Sound detection and feature extraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tonal_detection.html">Local-max detector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Batch analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lts_maker.html">Long-term spectrogram maker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lts_viewer.html">Long-term spectrogram viewer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_organize.html">Analysis result aggregation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">soundscape_IR</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Run batch analysis</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/batch_tutorials.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="run-batch-analysis">
+<h1>Run batch analysis<a class="headerlink" href="#run-batch-analysis" title="Permalink to this headline"></a></h1>
+<div>
+   <a href="https://colab.research.google.com/drive/1WRKiQPUeFDuYBZo2PXFLntirsQ_JJsYY?usp=sharing"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a>
+</div></br>
+<div align="left">
+<img src="./_images/batch_wf_v3.png" width="600"/>
+</div></br>
+<p>This tutorial introduces the application of the module <code class="docutils literal notranslate"><span class="pre">batch_processing</span></code> in analyzing a large amount of audio recordings. This tutorial contains three sections:</p>
+<ol class="arabic simple">
+<li><p>Generating a concatenated spectrogram from multiple recordings</p></li>
+<li><p>Applying model-based source separation to detect target sounds</p></li>
+<li><p>Performing adaptive and semi-supervised source separation to assess acoustic diversity</p></li>
+</ol>
+<section id="spectrogram-concatenation">
+<h2>Spectrogram concatenation<a class="headerlink" href="#spectrogram-concatenation" title="Permalink to this headline"></a></h2>
+<p>In order to build a robust source separation model, we often need to use a large amount of annotated sounds for model training. The module <code class="docutils literal notranslate"><span class="pre">batch_processing</span></code> allows to extract annotated clips from multiple recordings and subsequently generates a concatenated spectrogram.</p>
+<p>At first, create a folder and copy a set of annotated recordings to the folder. Enter the folder path in <code class="docutils literal notranslate"><span class="pre">folder</span></code> and the extended file name of the associated txt files containing annotations (generated by using <a class="reference external" href="https://ravensoundsoftware.com/">Raven software</a>) in <code class="docutils literal notranslate"><span class="pre">annotation_extension</span></code>. For example, if our recording files are named using the structure of <strong>Location_Date_Time.wav</strong> and txt files are <strong>Location_Date_Time.Table.1.selections.txt</strong>, please enter <code class="docutils literal notranslate"><span class="pre">annotation_extension='.Table.1.selections.txt'</span></code>.</p>
+<p>Then, define spectrogram parameters and set <code class="docutils literal notranslate"><span class="pre">folder_combine=True</span></code> in <code class="docutils literal notranslate"><span class="pre">batch_processing.params_spectrogram</span></code>. By doing this, <code class="docutils literal notranslate"><span class="pre">batch_processing</span></code> will combine all the recordings from the folder and generate a concatenated spectrogram according to the associated annotations. If only a portion of recordings in the folder is needed, we can specify the beginning file number (start from 1) in <code class="docutils literal notranslate"><span class="pre">start</span></code> and the number of recordings in <code class="docutils literal notranslate"><span class="pre">num_file</span></code>.</p>
+<p>After performing <code class="docutils literal notranslate"><span class="pre">batch_processing</span></code>, a concatenated spectrogram is saved in <code class="docutils literal notranslate"><span class="pre">batch_processing.spectrogram</span></code>, and we can plot the concatenated spectrogram by using <code class="docutils literal notranslate"><span class="pre">matrix_operation().plot_lts</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">soundscape_IR.soundscape_viewer</span> <span class="kn">import</span> <span class="n">batch_processing</span>
+<span class="kn">from</span> <span class="nn">soundscape_IR.soundscape_viewer</span> <span class="kn">import</span> <span class="n">matrix_operation</span>
+<span class="kn">from</span> <span class="nn">soundscape_IR.soundscape_viewer</span> <span class="kn">import</span> <span class="n">source_separation</span>
+
+<span class="c1"># Assign the folder path contains annotated recordings</span>
+<span class="n">path</span><span class="o">=</span><span class="s1">&#39;./data/batch/sec1_2/&#39;</span>
+
+<span class="c1"># Define parameters</span>
+<span class="n">batch</span> <span class="o">=</span> <span class="n">batch_processing</span><span class="p">(</span><span class="n">folder</span><span class="o">=</span><span class="n">path</span><span class="p">,</span> <span class="n">file_extension</span><span class="o">=</span><span class="s1">&#39;.wav&#39;</span><span class="p">,</span> <span class="n">annotation_extension</span><span class="o">=</span><span class="s1">&#39;.Table.1.selections.txt&#39;</span><span class="p">)</span>
+<span class="n">batch</span><span class="o">.</span><span class="n">params_spectrogram</span><span class="p">(</span><span class="n">FFT_size</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span> <span class="n">f_range</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">30000</span><span class="p">],</span> <span class="n">environment</span><span class="o">=</span><span class="s1">&#39;wat&#39;</span><span class="p">,</span> <span class="n">prewhiten_percent</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">time_resolution</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">folder_combine</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">batch</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_file</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Plot concatenated spectrogram</span>
+<span class="n">matrix_operation</span><span class="p">()</span><span class="o">.</span><span class="n">plot_lts</span><span class="p">(</span><span class="n">batch</span><span class="o">.</span><span class="n">spectrogram</span><span class="p">,</span> <span class="n">batch</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="n">fig_width</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">fig_height</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">lts</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Train a source separation model using PC-NMF</span>
+<span class="n">model</span><span class="o">=</span><span class="n">source_separation</span><span class="p">(</span><span class="n">feature_length</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">basis_num</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">learn_feature</span><span class="p">(</span><span class="n">input_data</span><span class="o">=</span><span class="n">batch</span><span class="o">.</span><span class="n">spectrogram</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">batch</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;PCNMF&#39;</span><span class="p">)</span>
+
+<span class="c1"># Plot the basis functions of each source</span>
+<span class="n">model</span><span class="o">.</span><span class="n">plot_nmf</span><span class="p">(</span><span class="n">plot_type</span><span class="o">=</span><span class="s1">&#39;W&#39;</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">plot_nmf</span><span class="p">(</span><span class="n">plot_type</span><span class="o">=</span><span class="s1">&#39;W&#39;</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<img src="./_images/batch_concatenate.png" width="650"/>
+</section>
+<section id="source-separation-and-spectrogram-detection">
+<h2>Source separation and spectrogram detection<a class="headerlink" href="#source-separation-and-spectrogram-detection" title="Permalink to this headline"></a></h2>
+<p>This section demonstrates the use of a source separation model in <code class="docutils literal notranslate"><span class="pre">batch_processing</span></code> to detect target sounds from a set of unannotated recordings.</p>
+<p>Here, we set <code class="docutils literal notranslate"><span class="pre">folder_combine=False</span></code> to sequentially process recordings. In addition, we add <code class="docutils literal notranslate"><span class="pre">batch_processing.params_separation</span></code> and <code class="docutils literal notranslate"><span class="pre">batch_processing.params_spectrogram_detection</span></code> to import the model and to run an energy detector. In <code class="docutils literal notranslate"><span class="pre">batch_processing.params_spectrogram_detection</span></code>, we can specify multiple sources (e.g., <code class="docutils literal notranslate"><span class="pre">source=[1,2]</span></code>) to separately detect regions of interests from different sources.</p>
+<p>Detection results will be saved as txt files (with source number after the original filename), using the same annotation format prepared via Raven software. The plotting function of detection results can be deactivated by setting <code class="docutils literal notranslate"><span class="pre">show_result=False</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">soundscape_IR.soundscape_viewer</span> <span class="kn">import</span> <span class="n">batch_processing</span>
+
+<span class="c1"># Assign the folder path of unannotated recordings and the path for saving detection results (in txt format)</span>
+<span class="n">path</span><span class="o">=</span><span class="s1">&#39;./data/batch/sec1_2/&#39;</span>
+<span class="n">save_path</span> <span class="o">=</span> <span class="s1">&#39;./data/txt&#39;</span>
+
+<span class="c1"># Define parameters</span>
+<span class="n">batch</span> <span class="o">=</span> <span class="n">batch_processing</span><span class="p">(</span><span class="n">folder</span><span class="o">=</span><span class="n">path</span><span class="p">,</span> <span class="n">file_extension</span><span class="o">=</span><span class="s1">&#39;.wav&#39;</span><span class="p">)</span>
+<span class="n">batch</span><span class="o">.</span><span class="n">params_spectrogram</span><span class="p">(</span><span class="n">FFT_size</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span> <span class="n">environment</span><span class="o">=</span><span class="s1">&#39;wat&#39;</span><span class="p">,</span> <span class="n">prewhiten_percent</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">time_resolution</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">f_range</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30000</span><span class="p">])</span>
+<span class="n">batch</span><span class="o">.</span><span class="n">params_separation</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+<span class="n">batch</span><span class="o">.</span><span class="n">params_spectrogram_detection</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">smooth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pad_size</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">save_path</span><span class="p">,</span> <span class="n">minimum_interval</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">show_result</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">batch</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">num_file</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<img src="./_images/batch_detection.png" width="650"/>
+</section>
+<section id="adaptive-and-semi-supervised-source-separation">
+<h2>Adaptive and semi-supervised source separation<a class="headerlink" href="#adaptive-and-semi-supervised-source-separation" title="Permalink to this headline"></a></h2>
+<p>The application of source separation in <code class="docutils literal notranslate"><span class="pre">batch_processing</span></code> also enables the use of adpated and semi-supervised learning methods in extracting acoustic features associated with target sounds displaying varied features and unknown sounds.</p>
+<p>At first, load a source separation model previously trained. Then, define <code class="docutils literal notranslate"><span class="pre">adaptive_alpha</span></code> and <code class="docutils literal notranslate"><span class="pre">additional_basis</span></code> in <code class="docutils literal notranslate"><span class="pre">batch_processing.params_separation</span></code> to enable adpated and semi-supervised source separation. Note that we can assign multiple values in <code class="docutils literal notranslate"><span class="pre">adaptive_alpha</span></code>  for different sound sources. In this example, we allow basis functions associated with deer calls to adapt from the variations among different calling individuals.</p>
+<p>In <code class="docutils literal notranslate"><span class="pre">batch_processing.params_separation</span></code>, set <code class="docutils literal notranslate"><span class="pre">save_basis=True</span></code> to save the basis fuctions learned in source separation procedures into a mat file.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">soundscape_IR.soundscape_viewer</span> <span class="kn">import</span> <span class="n">source_separation</span>
+<span class="kn">from</span> <span class="nn">soundscape_IR.soundscape_viewer</span> <span class="kn">import</span> <span class="n">batch_processing</span>
+
+<span class="c1"># Load a source separation model</span>
+<span class="n">model</span><span class="o">=</span><span class="n">source_separation</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">load_model</span><span class="p">(</span><span class="s1">&#39;./data/model/KT08_linear_fl24_bn10.mat&#39;</span><span class="p">)</span>
+
+<span class="c1"># Assign the folder_id of unannotated recordings and the path for saving basis functions (in mat format)</span>
+<span class="n">path</span><span class="o">=</span><span class="s1">&#39;./data/batch/sec3/&#39;</span>
+<span class="n">save_path</span><span class="o">=</span><span class="s1">&#39;./data/mat&#39;</span>
+
+<span class="c1"># Define parameters</span>
+<span class="n">batch</span> <span class="o">=</span> <span class="n">batch_processing</span><span class="p">(</span><span class="n">folder</span><span class="o">=</span><span class="n">path</span><span class="p">,</span> <span class="n">file_extension</span><span class="o">=</span><span class="s1">&#39;.wav&#39;</span><span class="p">)</span>
+<span class="n">batch</span><span class="o">.</span><span class="n">params_spectrogram</span><span class="p">(</span><span class="n">FFT_size</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">time_resolution</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">window_overlap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">prewhiten_percent</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">f_range</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">8000</span><span class="p">])</span>
+<span class="n">batch</span><span class="o">.</span><span class="n">params_separation</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">adaptive_alpha</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.2</span><span class="p">],</span> <span class="n">additional_basis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">save_basis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">save_path</span><span class="p">)</span>
+<span class="n">batch</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+<span class="c1"># Load the basis functions from a specific mat file</span>
+<span class="n">load_basis</span><span class="o">=</span><span class="n">source_separation</span><span class="p">()</span>
+<span class="n">load_basis</span><span class="o">.</span><span class="n">load_model</span><span class="p">(</span><span class="s1">&#39;./data/mat/KT08_20171118_123000.mat&#39;</span><span class="p">,</span> <span class="n">model_check</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Plot the basis functions of each source</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">load_basis</span><span class="o">.</span><span class="n">source_num</span><span class="p">):</span>
+  <span class="n">load_basis</span><span class="o">.</span><span class="n">plot_nmf</span><span class="p">(</span><span class="n">plot_type</span> <span class="o">=</span> <span class="s1">&#39;W&#39;</span><span class="p">,</span> <span class="n">source</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<img src="./_images/batch_feature_learn.png" width="650"/>
+<p>Aftering performing adapted or semi-supervised source separation, we can use <code class="docutils literal notranslate"><span class="pre">batch_processing</span></code> to load all basis functions for visualizing acoustic diversity.</p>
+<p>Here, we use <code class="docutils literal notranslate"><span class="pre">batch_processing.params_load_result</span></code> to load a large number of mat files. Please enter the filename information of the mat files so that <code class="docutils literal notranslate"><span class="pre">batch_processing</span></code> can extract the recording date and time from each mat file. For example, if the file name is ‘KT08_20171118_123000.mat’, please enter <code class="docutils literal notranslate"><span class="pre">initial='KT08_'</span></code> and <code class="docutils literal notranslate"><span class="pre">dateformat='yyyymmdd_HHMMSS'</span></code>. After the loading procedure, a source separation model contains all the basis functions is saved in <code class="docutils literal notranslate"><span class="pre">batch_processing.model</span></code>, and we can use <code class="docutils literal notranslate"><span class="pre">model.plot_nmf()</span></code> to plot basis functions or extract basis functions from <code class="docutils literal notranslate"><span class="pre">model.W</span></code> and <code class="docutils literal notranslate"><span class="pre">model.W_cluster</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">soundscape_IR.soundscape_viewer</span> <span class="kn">import</span> <span class="n">batch_processing</span>
+
+<span class="c1"># Assign the folder path of saved mat files</span>
+<span class="n">mat_path</span><span class="o">=</span><span class="s1">&#39;./data/mat&#39;</span>
+
+<span class="c1"># Define parameters</span>
+<span class="n">batch</span> <span class="o">=</span> <span class="n">batch_processing</span><span class="p">(</span><span class="n">folder</span><span class="o">=</span><span class="n">mat_path</span><span class="p">,</span> <span class="n">file_extension</span><span class="o">=</span><span class="s1">&#39;.mat&#39;</span><span class="p">)</span>
+<span class="n">batch</span><span class="o">.</span><span class="n">params_load_result</span><span class="p">(</span><span class="n">data_type</span><span class="o">=</span><span class="s1">&#39;basis&#39;</span><span class="p">,</span> <span class="n">initial</span><span class="o">=</span><span class="s1">&#39;KT08_&#39;</span><span class="p">,</span> <span class="n">dateformat</span><span class="o">=</span><span class="s1">&#39;yyyymmdd_HHMMSS&#39;</span><span class="p">)</span>
+<span class="n">batch</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+<span class="c1"># Plot the entire set of basis functions</span>
+<span class="n">idx</span> <span class="o">=</span> <span class="n">batch</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">W_cluster</span> <span class="o">==</span> <span class="mi">1</span>
+<span class="n">batch</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">W</span> <span class="o">=</span> <span class="n">batch</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">W</span><span class="p">[:,</span><span class="n">idx</span><span class="p">][:,::</span><span class="mi">7</span><span class="p">]</span>
+<span class="n">batch</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">plot_nmf</span><span class="p">(</span><span class="n">plot_type</span><span class="o">=</span><span class="s1">&#39;W&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img src="./_images/batch_feature_unsort.png" width="650"/>
+<p>With adapted source separation, we can obtain a set of basis functions associated with different sound types. We choose one feature from the adapted basis functions in each mat file and project these basis functions on an one-dimensional axis using Uniform Manifold Approximation and Projection (UMAP). The UMAP coordinate summarizes the spectral variations of the adapted basis functions. By sorting the adapted basis functions according to their UMAP scores, the basis functions at the left part are mostly characterized by burst-pulses, and the basis functions at the right part are tonal sounds with a few harmonics.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">umap</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Performing UMAP analysis on the adapted basis functions</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">umap</span><span class="o">.</span><span class="n">UMAP</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_components</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">data_umap</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">batch</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">W</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+
+<span class="c1"># Display the spectral variations of the adapted basis functions</span>
+<span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">data_umap</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">batch</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">W</span> <span class="o">=</span> <span class="n">batch</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">W</span><span class="p">[:,</span><span class="n">idx</span><span class="p">]</span>
+<span class="n">batch</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">plot_nmf</span><span class="p">(</span><span class="n">plot_type</span><span class="o">=</span><span class="s1">&#39;W&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img src="./_images/batch_feature_sort.png" width="650"/></section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="quickstart.html" class="btn btn-neutral float-left" title="Quick start" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="audio_visualization.html" class="btn btn-neutral float-right" title="Audio visualization" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Marine Ecoacoustics and Informatics Lab, Academia Sinica.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

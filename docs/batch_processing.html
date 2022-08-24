@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Batch analysis &mdash; soundscape_IR 1.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/my_theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Long-term spectrogram maker" href="lts_maker.html" />
+    <link rel="prev" title="Local-max detector" href="tonal_detection.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> soundscape_IR
+          </a>
+              <div class="version">
+                1.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_tutorials.html">Run batch analysis</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="audio_visualization.html">Audio visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source_separation.html">Audio source separation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="detection.html">Sound detection and feature extraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tonal_detection.html">Local-max detector</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Batch analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lts_maker.html">Long-term spectrogram maker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lts_viewer.html">Long-term spectrogram viewer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_organize.html">Analysis result aggregation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">soundscape_IR</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Batch analysis</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/batch_processing.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-soundscape_IR.soundscape_viewer.batch_processing">
+<span id="batch-analysis"></span><h1>Batch analysis<a class="headerlink" href="#module-soundscape_IR.soundscape_viewer.batch_processing" title="Permalink to this headline"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="soundscape_IR.soundscape_viewer.batch_processing.batch_processing">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">soundscape_IR.soundscape_viewer.batch_processing.</span></span><span class="sig-name descname"><span class="pre">batch_processing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_extension</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.wav'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotation_extension</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/meil-brcas-org/soundscape_IR/blob/master/soundscape_viewer/batch_processing.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soundscape_IR.soundscape_viewer.batch_processing.batch_processing" title="Permalink to this definition"></a></dt>
+<dd><p>Batch processing a large amount of acoustic data.</p>
+<p>This class integrates a set of methods supported by soundscape_IR to automatically process a large amount of soundscape recordings. At first, copy all the WAVE files collected from one recorder (presumably made at the same location) to a folder. Then, define analysis procedures and associated parameters. Finally, run the program to initiate analysis procedures.</p>
+<p>There are three types of outputs:</p>
+<ul class="simple">
+<li><p>Spectrogram detection results are saved in text files (using the format of Raven software).</p></li>
+<li><p>Feature extraction results are saved in mat files.</p></li>
+<li><p>Basis functions learned in source separation procedures are saved in mat files.</p></li>
+</ul>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>folder</strong><span class="classifier">str</span></dt><dd><p>Folder path for analysis.</p>
+</dd>
+<dt><strong>folder_id</strong><span class="classifier">str</span></dt><dd><p>The folder ID of Google Drive folder for analysis.</p>
+<p>See <a class="reference external" href="https://ploi.io/documentation/database/where-do-i-get-google-drive-folder-id">https://ploi.io/documentation/database/where-do-i-get-google-drive-folder-id</a> for the detial of folder ID.</p>
+</dd>
+<dt><strong>file_extension</strong><span class="classifier">{‘.wav’, ‘.WAV’, ‘.mat’, ‘.txt’}, default = ‘.wav’</span></dt><dd><p>Data format for analysis.</p>
+</dd>
+<dt><strong>annotation_extension</strong><span class="classifier">str, default = None</span></dt><dd><p>Extended file name of the associated txt files contain annotations (generated by using Raven software).</p>
+<p>For example, if our recording files are named using the structure of Location_Date_Time.wav and txt files are Location_Date_Time.Table.1.selections.txt, please set <code class="docutils literal notranslate"><span class="pre">annotation_extension='.Table.1.selections.txt'</span></code></p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Combine manual annotations of multiple recordings to generate a concatenated spectrogram for model training.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">soundscape_IR.soundscape_viewer</span> <span class="kn">import</span> <span class="n">batch_processing</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">batch</span> <span class="o">=</span> <span class="n">batch_processing</span><span class="p">(</span><span class="n">folder</span><span class="o">=</span><span class="s1">&#39;./data/&#39;</span><span class="p">,</span> <span class="n">annotation_extension</span><span class="o">=</span><span class="s1">&#39;.Table.1.selections.txt&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">batch</span><span class="o">.</span><span class="n">params_spectrogram</span><span class="p">(</span><span class="n">FFT_size</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span> <span class="n">prewhiten_percent</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">time_resolution</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">folder_combine</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">batch</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">soundscape_IR.soundscape_viewer</span> <span class="kn">import</span> <span class="n">matrix_operation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">matrix_operation</span><span class="p">()</span><span class="o">.</span><span class="n">plot_lts</span><span class="p">(</span><span class="n">batch</span><span class="o">.</span><span class="n">spectrogram</span><span class="p">,</span> <span class="n">batch</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="n">lts</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Apply an energy detector to identify regions of interest.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">soundscape_IR.soundscape_viewer</span> <span class="kn">import</span> <span class="n">batch_processing</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">batch</span> <span class="o">=</span> <span class="n">batch_processing</span><span class="p">(</span><span class="n">folder</span><span class="o">=</span><span class="s1">&#39;./data/&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">batch</span><span class="o">.</span><span class="n">params_spectrogram</span><span class="p">(</span><span class="n">FFT_size</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span> <span class="n">environment</span><span class="o">=</span><span class="s1">&#39;wat&#39;</span><span class="p">,</span> <span class="n">prewhiten_percent</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">time_resolution</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">batch</span><span class="o">.</span><span class="n">params_spectrogram_detection</span><span class="p">(</span><span class="n">threshold</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">smooth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">minimum_interval</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">&#39;./data/txt&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">batch</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Run adaptive and semi-supervised source separation.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">soundscape_IR.soundscape_viewer</span> <span class="kn">import</span> <span class="n">source_separation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">=</span><span class="n">source_separation</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;model.mat&#39;</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">soundscape_IR.soundscape_viewer</span> <span class="kn">import</span> <span class="n">batch_processing</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">batch</span> <span class="o">=</span> <span class="n">batch_processing</span><span class="p">(</span><span class="n">folder</span><span class="o">=</span><span class="s1">&#39;./data/)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">batch</span><span class="o">.</span><span class="n">params_spectrogram</span><span class="p">(</span><span class="n">FFT_size</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">time_resolution</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">window_overlap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">prewhiten_percent</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">f_range</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">8000</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">batch</span><span class="o">.</span><span class="n">params_separation</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">adaptive_alpha</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.2</span><span class="p">],</span> <span class="n">additional_basis</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">save_basis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">&#39;./data/mat/&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">batch</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soundscape_IR.soundscape_viewer.batch_processing.batch_processing.params_adaptive_prewhiten" title="soundscape_IR.soundscape_viewer.batch_processing.batch_processing.params_adaptive_prewhiten"><code class="xref py py-obj docutils literal notranslate"><span class="pre">params_adaptive_prewhiten</span></code></a>([eps, smooth, ...])</p></td>
+<td><p>Define parameters for adaptive prewhitening.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#soundscape_IR.soundscape_viewer.batch_processing.batch_processing.params_feature_extraction" title="soundscape_IR.soundscape_viewer.batch_processing.batch_processing.params_feature_extraction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">params_feature_extraction</span></code></a>([source, ...])</p></td>
+<td><p>Define feature extraction parameters.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soundscape_IR.soundscape_viewer.batch_processing.batch_processing.params_load_result" title="soundscape_IR.soundscape_viewer.batch_processing.batch_processing.params_load_result"><code class="xref py py-obj docutils literal notranslate"><span class="pre">params_load_result</span></code></a>([data_type, initial, ...])</p></td>
+<td><p>Define parameters for loading analysis results.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#soundscape_IR.soundscape_viewer.batch_processing.batch_processing.params_lts_maker" title="soundscape_IR.soundscape_viewer.batch_processing.batch_processing.params_lts_maker"><code class="xref py py-obj docutils literal notranslate"><span class="pre">params_lts_maker</span></code></a>([source, time_resolution, ...])</p></td>
+<td><p>Define parameters for making a long-term spectrogram.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soundscape_IR.soundscape_viewer.batch_processing.batch_processing.params_separation" title="soundscape_IR.soundscape_viewer.batch_processing.batch_processing.params_separation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">params_separation</span></code></a>(model[, iter, ...])</p></td>
+<td><p>Define parameters for the prediction phase of source separation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#soundscape_IR.soundscape_viewer.batch_processing.batch_processing.params_spectrogram" title="soundscape_IR.soundscape_viewer.batch_processing.batch_processing.params_spectrogram"><code class="xref py py-obj docutils literal notranslate"><span class="pre">params_spectrogram</span></code></a>([channel, offset_read, ...])</p></td>
+<td><p>Define spectrogram parameters.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soundscape_IR.soundscape_viewer.batch_processing.batch_processing.params_spectrogram_detection" title="soundscape_IR.soundscape_viewer.batch_processing.batch_processing.params_spectrogram_detection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">params_spectrogram_detection</span></code></a>([source, ...])</p></td>
+<td><p>Define parameters for spectrogram-based sound detection.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#soundscape_IR.soundscape_viewer.batch_processing.batch_processing.params_tonal_detection" title="soundscape_IR.soundscape_viewer.batch_processing.batch_processing.params_tonal_detection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">params_tonal_detection</span></code></a>([source, ...])</p></td>
+<td><p>Define parameters for tonal sound extraction.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soundscape_IR.soundscape_viewer.batch_processing.batch_processing.run" title="soundscape_IR.soundscape_viewer.batch_processing.batch_processing.run"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run</span></code></a>([start, num_file])</p></td>
+<td><p>Run batch processing procedures.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="soundscape_IR.soundscape_viewer.batch_processing.batch_processing.params_adaptive_prewhiten">
+<span class="sig-name descname"><span class="pre">params_adaptive_prewhiten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smooth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">continuous_adaptive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/meil-brcas-org/soundscape_IR/blob/master/soundscape_viewer/batch_processing.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soundscape_IR.soundscape_viewer.batch_processing.batch_processing.params_adaptive_prewhiten" title="Permalink to this definition"></a></dt>
+<dd><p>Define parameters for adaptive prewhitening.</p>
+<p>Apply this method to prewhien spectrograms via time weighted running average of noise spectrum. See Lin et al. (2013) for details.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>eps</strong><span class="classifier">float, default = 0.1</span></dt><dd><p>Ratio to update the weighted running average of power spectral density in each time bin (i).</p>
+<p>Running average of noise is estimated independently in each frequency bin (f).</p>
+<div class="math notranslate nohighlight">
+\[N =  (1-eps)*P_{f,i} + eps*P_{f,i+1}\]</div>
+</dd>
+<dt><strong>smooth</strong><span class="classifier">float ≥ 0, default = 1</span></dt><dd><p>Standard deviation of Gaussian kernel for smoothing the spectrogram data.</p>
+<p>See <code class="docutils literal notranslate"><span class="pre">sigma</span></code> in <code class="docutils literal notranslate"><span class="pre">scipy.ndimage.gaussian_filter</span></code> for details.</p>
+</dd>
+<dt><strong>continuous_adaptive</strong><span class="classifier">boolean, default = True</span></dt><dd><p>Set to True when audio recordings are collected in time series.</p>
+<p>Noise estimated from the i_th file will be passed to i+1_th file.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="r8c90ec4015e6-1"><span class="brackets">1</span></dt>
+<dd><p>Lin, T.-H., Chou, L.-S., Akamatsu, T., Chan, H.-C., &amp; Chen, C.-F. (2013) An automatic detection algorithm for extracting the representative frequency of cetacean tonal sounds. Journal of the Acoustical Society of America, 134: 2477-2485. <a class="reference external" href="https://doi.org/10.1121/1.4816572">https://doi.org/10.1121/1.4816572</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="soundscape_IR.soundscape_viewer.batch_processing.batch_processing.params_feature_extraction">
+<span class="sig-name descname"><span class="pre">params_feature_extraction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">energy_percentile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[1,</span> <span class="pre">500]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lts_maker</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/meil-brcas-org/soundscape_IR/blob/master/soundscape_viewer/batch_processing.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soundscape_IR.soundscape_viewer.batch_processing.batch_processing.params_feature_extraction" title="Permalink to this definition"></a></dt>
+<dd><p>Define feature extraction parameters.</p>
+<p>See the method <code class="docutils literal notranslate"><span class="pre">feature_extraction</span></code> of <code class="docutils literal notranslate"><span class="pre">soundscape_IR.soundscape_viewer.utility.spectrogram_detection</span></code> for details.</p>
+<p>Define the <code class="docutils literal notranslate"><span class="pre">folder_id</span></code> or <code class="docutils literal notranslate"><span class="pre">path</span></code> to save feature extraction results as mat files.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="soundscape_IR.soundscape_viewer.batch_processing.batch_processing.params_load_result">
+<span class="sig-name descname"><span class="pre">params_load_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'basis'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dateformat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'yyyymmdd_HHMMSS'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year_initial</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/meil-brcas-org/soundscape_IR/blob/master/soundscape_viewer/batch_processing.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soundscape_IR.soundscape_viewer.batch_processing.batch_processing.params_load_result" title="Permalink to this definition"></a></dt>
+<dd><p>Define parameters for loading analysis results.</p>
+<p>Currently, only support mat files containing basis funcitons and feature extraction results, and text files containing detection results. Please choose <code class="docutils literal notranslate"><span class="pre">data_type</span></code> from {‘basis’, ‘feature’, ‘detection’}.</p>
+<p>See <code class="docutils literal notranslate"><span class="pre">soundscape_IR.soundscape_viewer.soundscape_viewer.lts_maker</span></code> for details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>data_type</strong><span class="classifier">{‘basis’, ‘feature’, ‘detection’}, default = ‘basis’</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Use batch_processing to combine the entire set of newly learned basis functions.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">soundscape_IR.soundscape_viewer</span> <span class="kn">import</span> <span class="n">batch_processing</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">batch</span> <span class="o">=</span> <span class="n">batch_processing</span><span class="p">(</span><span class="n">folder</span><span class="o">=</span><span class="s1">&#39;./data/mat/&#39;</span><span class="p">,</span> <span class="n">file_extension</span><span class="o">=</span><span class="s1">&#39;.mat&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">batch</span><span class="o">.</span><span class="n">params_load_result</span><span class="p">(</span><span class="n">data_type</span><span class="o">=</span><span class="s1">&#39;basis&#39;</span><span class="p">,</span> <span class="n">initial</span><span class="o">=</span><span class="s1">&#39;Location_&#39;</span><span class="p">,</span> <span class="n">dateformat</span><span class="o">=</span><span class="s1">&#39;yyyymmdd_HHMMSS&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">batch</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Plot the basis functions learned by using semi-supervised source separation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">batch</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">plot_nmf</span><span class="p">(</span><span class="n">plot_type</span><span class="o">=</span><span class="s1">&#39;W&#39;</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>model</strong></dt><dd><p>See <code class="docutils literal notranslate"><span class="pre">soundscape_IR.soundscape_viewer.source_separation</span></code> for details.</p>
+</dd>
+<dt><strong>detection_result</strong></dt><dd><p>See <code class="docutils literal notranslate"><span class="pre">soundscape_IR.soundscape_viewer.spectrogram_detection</span></code> for details.</p>
+</dd>
+<dt><strong>PI, PI_result, f, spectral_result</strong></dt><dd><p>See <code class="docutils literal notranslate"><span class="pre">soundscape_IR.soundscape_viewer.spectrogram_detection.feature_extraction</span></code> for details.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="soundscape_IR.soundscape_viewer.batch_processing.batch_processing.params_lts_maker">
+<span class="sig-name descname"><span class="pre">params_lts_maker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_resolution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dateformat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'yyyymmdd_HHMMSS'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year_initial</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Separation_LTS.mat'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/meil-brcas-org/soundscape_IR/blob/master/soundscape_viewer/batch_processing.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soundscape_IR.soundscape_viewer.batch_processing.batch_processing.params_lts_maker" title="Permalink to this definition"></a></dt>
+<dd><p>Define parameters for making a long-term spectrogram.</p>
+<p>See <code class="docutils literal notranslate"><span class="pre">soundscape_IR.soundscape_viewer.soundscape_viewer.lts_maker</span></code> for details.</p>
+<p>Enter the filename information to extract the recording date and time from each audio file. For example, if the file name is ‘KT08_20171118_123000.wav’, please enter <code class="docutils literal notranslate"><span class="pre">initial='KT08_'</span></code> and <code class="docutils literal notranslate"><span class="pre">dateformat='yyyymmdd_HHMMSS'</span></code>.</p>
+<p>If the file name does not contain information of century (when <code class="docutils literal notranslate"><span class="pre">dateformat='yymmdd_HHMMSS'</span></code>), specify century in <code class="docutils literal notranslate"><span class="pre">year_initial</span></code>. For example, the recording ‘KT08_171118_123000.wav’ was made in 2017, then set <code class="docutils literal notranslate"><span class="pre">year_initial=2000</span></code>.</p>
+<p>Define the <code class="docutils literal notranslate"><span class="pre">folder_id</span></code> or <code class="docutils literal notranslate"><span class="pre">path</span></code> to save the long-term spectrogram as a mat file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="soundscape_IR.soundscape_viewer.batch_processing.batch_processing.params_separation">
+<span class="sig-name descname"><span class="pre">params_separation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adaptive_alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_basis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_basis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/meil-brcas-org/soundscape_IR/blob/master/soundscape_viewer/batch_processing.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soundscape_IR.soundscape_viewer.batch_processing.batch_processing.params_separation" title="Permalink to this definition"></a></dt>
+<dd><p>Define parameters for the prediction phase of source separation.</p>
+<p>See <code class="docutils literal notranslate"><span class="pre">soundscape_IR.soundscape_viewer.source_separation.source_separation</span></code> for details.</p>
+<p>Set <code class="docutils literal notranslate"><span class="pre">save_basis</span></code> to True for saving basis functions learned in the prediction phase (when adaptive or semi-supervised source separation are enabled). Define the <code class="docutils literal notranslate"><span class="pre">folder_id</span></code> or <code class="docutils literal notranslate"><span class="pre">path</span></code> to save basis functions as mat files.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="soundscape_IR.soundscape_viewer.batch_processing.batch_processing.params_spectrogram">
+<span class="sig-name descname"><span class="pre">params_spectrogram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset_read</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">FFT_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">512</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'wat'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_resolution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window_overlap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prewhiten_percent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder_combine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mel_comp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitivity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/meil-brcas-org/soundscape_IR/blob/master/soundscape_viewer/batch_processing.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soundscape_IR.soundscape_viewer.batch_processing.batch_processing.params_spectrogram" title="Permalink to this definition"></a></dt>
+<dd><p>Define spectrogram parameters.</p>
+<p>See <code class="docutils literal notranslate"><span class="pre">soundscape_IR.soundscape_viewer.utility.audio_visualization</span></code> for details.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="soundscape_IR.soundscape_viewer.batch_processing.batch_processing.params_spectrogram_detection">
+<span class="sig-name descname"><span class="pre">params_spectrogram_detection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smooth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimum_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimum_duration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximum_duration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_result</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/meil-brcas-org/soundscape_IR/blob/master/soundscape_viewer/batch_processing.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soundscape_IR.soundscape_viewer.batch_processing.batch_processing.params_spectrogram_detection" title="Permalink to this definition"></a></dt>
+<dd><p>Define parameters for spectrogram-based sound detection.</p>
+<p>See <code class="docutils literal notranslate"><span class="pre">soundscape_IR.soundscape_viewer.utility.spectrogram_detection</span></code> for details.</p>
+<p>Define the <code class="docutils literal notranslate"><span class="pre">folder_id</span></code> or <code class="docutils literal notranslate"><span class="pre">path</span></code> to save detection results as txt files. Set <code class="docutils literal notranslate"><span class="pre">show_result</span></code> to True for directly viewing the detection results (WARNING: this may generate a large number of figures).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="soundscape_IR.soundscape_viewer.batch_processing.batch_processing.params_tonal_detection">
+<span class="sig-name descname"><span class="pre">params_tonal_detection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tonal_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smooth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/meil-brcas-org/soundscape_IR/blob/master/soundscape_viewer/batch_processing.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soundscape_IR.soundscape_viewer.batch_processing.batch_processing.params_tonal_detection" title="Permalink to this definition"></a></dt>
+<dd><p>Define parameters for tonal sound extraction.</p>
+<p>See <code class="docutils literal notranslate"><span class="pre">soundscape_IR.soundscape_viewer.utility.tonal_detection</span></code> for details.</p>
+<p>Define the <code class="docutils literal notranslate"><span class="pre">folder_id</span></code> or <code class="docutils literal notranslate"><span class="pre">path</span></code> to save detection results as txt files.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="soundscape_IR.soundscape_viewer.batch_processing.batch_processing.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/meil-brcas-org/soundscape_IR/blob/master/soundscape_viewer/batch_processing.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soundscape_IR.soundscape_viewer.batch_processing.batch_processing.run" title="Permalink to this definition"></a></dt>
+<dd><p>Run batch processing procedures.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>start</strong><span class="classifier">int ≥ 1, default = 1</span></dt><dd><p>The file number to begin batch analysis.</p>
+</dd>
+<dt><strong>num_file</strong><span class="classifier">None or int ≥ 1, default = None</span></dt><dd><p>The number of files after <code class="docutils literal notranslate"><span class="pre">start</span></code> for batch analysis.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="tonal_detection.html" class="btn btn-neutral float-left" title="Local-max detector" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="lts_maker.html" class="btn btn-neutral float-right" title="Long-term spectrogram maker" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Marine Ecoacoustics and Informatics Lab, Academia Sinica.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

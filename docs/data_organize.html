@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Analysis result aggregation &mdash; soundscape_IR 1.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/my_theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Long-term spectrogram viewer" href="lts_viewer.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> soundscape_IR
+          </a>
+              <div class="version">
+                1.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_tutorials.html">Run batch analysis</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="audio_visualization.html">Audio visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source_separation.html">Audio source separation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="detection.html">Sound detection and feature extraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tonal_detection.html">Local-max detector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Batch analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lts_maker.html">Long-term spectrogram maker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lts_viewer.html">Long-term spectrogram viewer</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Analysis result aggregation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">soundscape_IR</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Analysis result aggregation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/data_organize.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-soundscape_IR.soundscape_viewer.soundscape_viewer">
+<span id="analysis-result-aggregation"></span><h1>Analysis result aggregation<a class="headerlink" href="#module-soundscape_IR.soundscape_viewer.soundscape_viewer" title="Permalink to this headline"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="soundscape_IR.soundscape_viewer.soundscape_viewer.data_organize">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">soundscape_IR.soundscape_viewer.soundscape_viewer.</span></span><span class="sig-name descname"><span class="pre">data_organize</span></span><a class="reference external" href="https://github.com/meil-brcas-org/soundscape_IR/blob/master/soundscape_viewer/soundscape_viewer.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soundscape_IR.soundscape_viewer.soundscape_viewer.data_organize" title="Permalink to this definition"></a></dt>
+<dd><p>Aggregate analysis results of long-term spectrograms.</p>
+<p>In soundscape ecology, we often want to investigate the diurnal and seasonal variations of geophony, biophony, and anthropophony. This class provides a set of methods to aggregate the analysis results of long-term spectrograms, such as the relative intensities produced from source separation procedures or clusters identified using an unsupervised learning algorithm.</p>
+<p>At first, use a source separation model or clustering algorithm to analyze long-term spectrograms collected from the same recording site. Then, enter the array of segment time of spectrogram data and the associated analysis result. This class will automatically scan the data, calculate the duty cycle (according to the time difference between the first two segments), and fill the recording gaps. Once a column has been inserted, a heatmap can be generated to visualize changes in diurnal (y-axis) and seasonal (x-axis) cycles.</p>
+<p>After repeating these procedures for multiple analysis results, the organized results can be saved in a csv file for further applications.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">soundscape_IR.soundscape_viewer</span> <span class="kn">import</span> <span class="n">data_organize</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">analysis_result</span><span class="o">=</span><span class="n">data_organize</span><span class="p">()</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Sound intensities of the median-based LTS</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">analysis_result</span><span class="o">.</span><span class="n">time_fill</span><span class="p">(</span><span class="n">time_vec</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">time_vec</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">original_level</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="s1">&#39;LTS_Median_Level&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">analysis_result</span><span class="o">.</span><span class="n">plot_diurnal</span><span class="p">(</span><span class="n">col</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Relative intensities of the first sound source</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">analysis_result</span><span class="o">.</span><span class="n">time_fill</span><span class="p">(</span><span class="n">time_vec</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">time_vec</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">relative_level</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">header</span><span class="o">=</span><span class="s1">&#39;Source1_Level&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">analysis_result</span><span class="o">.</span><span class="n">plot_diurnal</span><span class="p">(</span><span class="n">col</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Relative intensities of the second sound source</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">analysis_result</span><span class="o">.</span><span class="n">time_fill</span><span class="p">(</span><span class="n">time_vec</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">time_vec</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">relative_level</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">header</span><span class="o">=</span><span class="s1">&#39;Source2_Level&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">analysis_result</span><span class="o">.</span><span class="n">plot_diurnal</span><span class="p">(</span><span class="n">col</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Clusters of the first sound source</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">analysis_result</span><span class="o">.</span><span class="n">time_fill</span><span class="p">(</span><span class="n">time_vec</span><span class="o">=</span><span class="n">cluster_result_S1</span><span class="o">.</span><span class="n">time_vec</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">cluster_result_S1</span><span class="o">.</span><span class="n">cluster</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="s1">&#39;Source1_Cluster&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">analysis_result</span><span class="o">.</span><span class="n">plot_diurnal</span><span class="p">(</span><span class="n">col</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Clusters of the second sound source</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">analysis_result</span><span class="o">.</span><span class="n">time_fill</span><span class="p">(</span><span class="n">time_vec</span><span class="o">=</span><span class="n">cluster_result_S2</span><span class="o">.</span><span class="n">time_vec</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">cluster_result_S2</span><span class="o">.</span><span class="n">cluster</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="s1">&#39;Source2_Cluster&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">analysis_result</span><span class="o">.</span><span class="n">plot_diurnal</span><span class="p">(</span><span class="n">col</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Save analysis results in a csv file</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">analysis_result</span><span class="o">.</span><span class="n">save_csv</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;Analysis_result.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soundscape_IR.soundscape_viewer.soundscape_viewer.data_organize.plot_diurnal" title="soundscape_IR.soundscape_viewer.soundscape_viewer.data_organize.plot_diurnal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_diurnal</span></code></a>([col, vmin, vmax, fig_width, ...])</p></td>
+<td><p>Generate a heatmap for visualizing soundscape changes in diurnal and seasonal cycles.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#soundscape_IR.soundscape_viewer.soundscape_viewer.data_organize.remove_column" title="soundscape_IR.soundscape_viewer.soundscape_viewer.data_organize.remove_column"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_column</span></code></a>(col)</p></td>
+<td><p>Remove a column of analysis result.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soundscape_IR.soundscape_viewer.soundscape_viewer.data_organize.save_csv" title="soundscape_IR.soundscape_viewer.soundscape_viewer.data_organize.save_csv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_csv</span></code></a>([filename, folder_id])</p></td>
+<td><p>Save the analysis results to a csv file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#soundscape_IR.soundscape_viewer.soundscape_viewer.data_organize.time_fill" title="soundscape_IR.soundscape_viewer.soundscape_viewer.data_organize.time_fill"><code class="xref py py-obj docutils literal notranslate"><span class="pre">time_fill</span></code></a>(time_vec, data, header[, value_input])</p></td>
+<td><p>Create a new column for the input analsis result and fill the recording gaps (if any).</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="soundscape_IR.soundscape_viewer.soundscape_viewer.data_organize.plot_diurnal">
+<span class="sig-name descname"><span class="pre">plot_diurnal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">col</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig_height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">empty_hr_remove</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">empty_day_remove</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduce_resolution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_cluster</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nan_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/meil-brcas-org/soundscape_IR/blob/master/soundscape_viewer/soundscape_viewer.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soundscape_IR.soundscape_viewer.soundscape_viewer.data_organize.plot_diurnal" title="Permalink to this definition"></a></dt>
+<dd><p>Generate a heatmap for visualizing soundscape changes in diurnal and seasonal cycles.</p>
+<p>Y-axis is the 24 hours and x-axis is the recording days of the input data.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>col</strong><span class="classifier">int ≥ 1</span></dt><dd><p>Column number to plot.</p>
+</dd>
+<dt><strong>vmin, vmax</strong><span class="classifier">None or float, default = None</span></dt><dd><p>The data range that the colormap covers.</p>
+<p>By default (None), the colormap covers the complete value range of the long-term spectrogram.</p>
+</dd>
+<dt><strong>fig_width, fig_height</strong><span class="classifier">float &gt; 0</span></dt><dd><p>Figure width and height.</p>
+</dd>
+<dt><strong>empty_hr_remove</strong><span class="classifier">boolean, default = False</span></dt><dd><p>Set to True when there are known repetitive recording gaps among the 24-hr cycle.</p>
+</dd>
+<dt><strong>empty_day_remove</strong><span class="classifier">boolean, default = False</span></dt><dd><p>Set to True when there are known repetitive recording gaps among the seasonal cycle.</p>
+</dd>
+<dt><strong>reduce_resolution</strong><span class="classifier">int &gt; 1</span></dt><dd><p>Reduce the time resolution of y-axis (hour).</p>
+<p>If the time resolution of long-term spectrogram is 5 min, set <code class="docutils literal notranslate"><span class="pre">reduce_resolution</span></code> to 6 will change the resolution hour axis to 30 min.</p>
+</dd>
+<dt><strong>display_cluster</strong><span class="classifier">int &gt; 0</span></dt><dd><p>For clustering result, enter a specific cluster number to plot its presence and absence.</p>
+</dd>
+<dt><strong>plot</strong><span class="classifier">boolean, default = True</span></dt><dd><p>Set to False for not making a figure.</p>
+</dd>
+<dt><strong>nan_value</strong><span class="classifier">NaN or float</span></dt><dd><p>Same as <code class="docutils literal notranslate"><span class="pre">value_input</span></code>, allowing the program to recognize segments without recording efforts.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl>
+<dt><strong>plot_matrix</strong><span class="classifier">ndarray of shape (day, hour)</span></dt><dd><p>Matrix of diurnal and seasonal variations.</p>
+<p>The first column is date, and the subsequent columns are values associated with <code class="docutils literal notranslate"><span class="pre">hr</span></code>.</p>
+</dd>
+<dt><strong>hr</strong><span class="classifier">ndarray of shape (hour,)</span></dt><dd><p>Hour segments of the matrix of diurnal and seasonal variations.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="soundscape_IR.soundscape_viewer.soundscape_viewer.data_organize.remove_column">
+<span class="sig-name descname"><span class="pre">remove_column</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">col</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/meil-brcas-org/soundscape_IR/blob/master/soundscape_viewer/soundscape_viewer.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soundscape_IR.soundscape_viewer.soundscape_viewer.data_organize.remove_column" title="Permalink to this definition"></a></dt>
+<dd><p>Remove a column of analysis result.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>col</strong><span class="classifier">int ≥ 1</span></dt><dd><p>Column number to remove.</p>
+<p>Note that column 0 represents the Time column, which cannot be removed.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="soundscape_IR.soundscape_viewer.soundscape_viewer.data_organize.save_csv">
+<span class="sig-name descname"><span class="pre">save_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Soundscape_analysis.csv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/meil-brcas-org/soundscape_IR/blob/master/soundscape_viewer/soundscape_viewer.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soundscape_IR.soundscape_viewer.soundscape_viewer.data_organize.save_csv" title="Permalink to this definition"></a></dt>
+<dd><p>Save the analysis results to a csv file.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>filename</strong><span class="classifier">str, default = ‘Soundscape_analysis.csv’</span></dt><dd><p>Name of the csv file.</p>
+</dd>
+<dt><strong>folder_id</strong><span class="classifier">[] or str, default = []</span></dt><dd><p>The folder ID of Google Drive folder for saving analysis results.</p>
+<p>See <a class="reference external" href="https://ploi.io/documentation/database/where-do-i-get-google-drive-folder-id">https://ploi.io/documentation/database/where-do-i-get-google-drive-folder-id</a> for the detial of folder ID.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="soundscape_IR.soundscape_viewer.soundscape_viewer.data_organize.time_fill">
+<span class="sig-name descname"><span class="pre">time_fill</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time_vec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value_input</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/meil-brcas-org/soundscape_IR/blob/master/soundscape_viewer/soundscape_viewer.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soundscape_IR.soundscape_viewer.soundscape_viewer.data_organize.time_fill" title="Permalink to this definition"></a></dt>
+<dd><p>Create a new column for the input analsis result and fill the recording gaps (if any).</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>time_vec</strong><span class="classifier">ndarray of shape (time,)</span></dt><dd><p>Array of segment time.</p>
+</dd>
+<dt><strong>data</strong><span class="classifier">ndarray of shape (time,)</span></dt><dd><p>Array of analysis result.</p>
+<p>The dimension of <code class="docutils literal notranslate"><span class="pre">data</span></code> should be the same as <code class="docutils literal notranslate"><span class="pre">time_vec</span></code>.</p>
+</dd>
+<dt><strong>header</strong><span class="classifier">str</span></dt><dd><p>Name of the input data.</p>
+</dd>
+<dt><strong>value_input</strong><span class="classifier">NaN or float, default = 0</span></dt><dd><p>If recording gaps exist, this method will fill the recording gaps with the input value.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="lts_viewer.html" class="btn btn-neutral float-left" title="Long-term spectrogram viewer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Marine Ecoacoustics and Informatics Lab, Academia Sinica.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
